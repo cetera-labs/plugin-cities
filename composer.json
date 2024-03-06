@@ -1,0 +1,32 @@
+{
+    "name": "cetera-labs/plugin-cities",
+    "description": "Плагин городов WIP",
+    "type": "cetera-cms-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oleg Korotkov",
+            "role": "Author"
+        },
+        {
+            "name": "Leonid Chesnokov",
+            "role": "Support"
+        }
+    ],
+    "require": {
+    },
+    
+    "minimum-stability": "dev",
+    
+    "autoload": {
+        "psr-0": { 
+			"Cities\\": "classes/"
+		}
+    },
+
+    "extra": {
+        "name": "cities",
+        "title": "Плагин городов WIP",
+        "description": "Плагин городов WIP"
+    }
+}
