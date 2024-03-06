@@ -18,10 +18,10 @@ class WidgetLocation extends \Cetera\Widget\Templateable
     public function init()
     {
         $this->location = new \Cities\Reason\LocationReady($this->getParam('arrayCities'));
-        $this->location->redirect = $this->getParam('redirect');
+        /*$this->location->redirect = $this->getParam('redirect');
 
         if ($this->location->redirect) {
             $this->location->startRedirect();
-        }
+        }*/
     }
 }
