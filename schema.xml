@@ -18,8 +18,8 @@
         <field name="idcat" type="3" pseudo_type="0" description="Section[ru=Раздел]" length="1" show="0" required="1"
                fixed="1" editor="0" editor_user="" default_value=""/>
         <field name="city_pr" type="1" pseudo_type="0" description="Сity_pr[ru=Город в родительном падеже]" length="255"
-               show="1" required="1" fixed="1" editor="0" editor_user="" default_value=""/>
-        <field name="addres" type="1" pseudo_type="0" description="Addres[ru=Адрес]" length="255" show="1" required="1"
+               show="1" required="0" fixed="1" editor="0" editor_user="" default_value=""/>
+        <field name="addres" type="1" pseudo_type="0" description="Addres[ru=Адрес]" length="255" show="1" required="0"
                fixed="1" editor="0" editor_user="" default_value=""/>
         <field name="region" type="1" pseudo_type="0" description="Region[ru=Регион]" length="255" show="1" required="0"
                fixed="1" editor="0" editor_user="" default_value=""/>
