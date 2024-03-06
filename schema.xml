@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<schema>
+    <object name="cities" description="Cities[ru=Города]" fixed="1" handler="" plugin="">
+        <field name="tag" type="3" pseudo_type="0" description="Sort[ru=Сортировка]" length="1" show="1" required="0"
+               fixed="1" editor="0" editor_user="" default_value=""/>
+        <field name="name" type="1" pseudo_type="0" description="Title[ru=Заголовок]" length="99" show="1" required="0"
+               fixed="1" editor="0" editor_user="" default_value=""/>
+        <field name="alias" type="1" pseudo_type="0" description="Alias" length="255" show="1" required="1" fixed="1"
+               editor="0" editor_user="" default_value=""/>
+        <field name="dat" type="5" pseudo_type="0" description="Date create[ru=Дата создания]" length="1" show="0"
+               required="1" fixed="1" editor="0" editor_user="" default_value=""/>
+        <field name="dat_update" type="5" pseudo_type="0" description="Edit date[ru=Дата изменения]" length="1" show="0"
+               required="1" fixed="1" editor="0" editor_user="" default_value=""/>
+        <field name="autor" type="3" pseudo_type="0" description="Author[ru=Автор]" length="1" show="1" required="1"
+               fixed="1" editor="0" editor_user="" default_value=""/>
+        <field name="type" type="3" pseudo_type="0" description="Properties[ru=Свойства]" length="1" show="0"
+               required="1" fixed="1" editor="0" editor_user="" default_value=""/>
+        <field name="idcat" type="3" pseudo_type="0" description="Section[ru=Раздел]" length="1" show="0" required="1"
+               fixed="1" editor="0" editor_user="" default_value=""/>
+        <field name="city_pr" type="1" pseudo_type="0" description="Сity_pr[ru=Город в родительном падеже]" length="255"
+               show="1" required="1" fixed="1" editor="0" editor_user="" default_value=""/>
+        <field name="addres" type="1" pseudo_type="0" description="Addres[ru=Адрес]" length="255" show="1" required="1"
+               fixed="1" editor="0" editor_user="" default_value=""/>
+        <field name="region" type="1" pseudo_type="0" description="Region[ru=Регион]" length="255" show="1" required="0"
+               fixed="1" editor="0" editor_user="" default_value=""/>
+    </object>
+
+    <table name="cities_settings">
+
+        <field name="id" type="int(11) unsigned" null="0" auto_increment="1"/>
+
+        <field name="default_city" type="text"/>
+
+        <field name="robots_file" type="longtext"/>
+
+        <field name="sitemap_file" type="longtext"/>
+
+        <field name="use_sitemap" type="varchar(6)"/>
+
+        <field name="server_city_key" type="varchar(50)"/>
+
+        <key name="PRIMARY" unique="1">
+            <column name="id"/>
+        </key>
+
+    </table>
+</schema>
+
+
+
