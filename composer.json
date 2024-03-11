@@ -18,7 +18,8 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-0": {
-      "Cities\\": "classes/"
+      "Cities\\": "classes/",
+      "CitySection\\": "classes/"
     }
   },
   "extra": {
