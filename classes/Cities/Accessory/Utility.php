@@ -25,7 +25,7 @@ class Utility
 
     public static function getProtocol()
     {
-        return $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://';
+        return 'http://';
     }
 
     public static function isMainSite()

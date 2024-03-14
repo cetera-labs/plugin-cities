@@ -80,13 +80,6 @@ try {
             break;
         /*  Подгрузка настроек  */
         case "getFiles":
-
-            $fields = $city->settings->fields;
-
-            foreach ($fields as $field => $value) {
-                $res[$field] = $value;
-            }
-            $res['res'] = true;
             break;
 
         default:
