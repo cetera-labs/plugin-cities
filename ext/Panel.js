@@ -30,10 +30,7 @@ Ext.define('Plugin.cities.Panel', {
 
         Ext.apply(this, {
             items: [
-                panel,
-                defaultCity,
-                formRobots,
-                formSitemap
+                panel
 
             ]
         });
