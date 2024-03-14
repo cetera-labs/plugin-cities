@@ -1,4 +1,14 @@
-{% for m in widget.location.cities %}
-    {{ m.name }}
-{% endfor %}
+<a id="select-city-header">Москва</a>
 
+<div id="modalContainerCS">
+    <div class="city-selector">
+        <span id="close-city-selector">X</span>
+        <p>Выбор города</p>
+
+        <ul>
+            {% for m in widget.location.cities %}
+                <li><a data-id="{{ m.id }}" href="{{ m.link }}"> {{ m.name }} </a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
