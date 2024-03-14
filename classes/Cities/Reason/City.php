@@ -41,7 +41,7 @@ Class City
     public function setLinks($materials)
     {
         foreach ($materials as $key => $value) {
-            $value->fields['link'] =   Utility::getDomain().'/'.$materials[$key]->alias.'/';
+            $value->fields['link'] =   'https://'.Utility::getDomain().'/'.$materials[$key]->alias.'/';
         }
         return $materials;
     }
