@@ -9,13 +9,8 @@ class Utility
     {
         $tmpServer = explode('.', $_SERVER['SERVER_NAME']);
 
-        if (sizeof($tmpServer) == 3) {
-            if ($sub) {
-                $NtmpServer = array_slice($tmpServer, intval(0), intval(-2));
-            } else {
-                $NtmpServer = array_slice($tmpServer, intval(-2));
-            }
-
+        if ($tmpServer[0] === 'www') {
+            $NtmpServer = array_slice($tmpServer, intval(1));
             $str = implode(".", $NtmpServer);
         } else {
             $str = implode(".", $tmpServer);
