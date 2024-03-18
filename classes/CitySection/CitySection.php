@@ -4,12 +4,14 @@ namespace CitySection;
 
 class CitySection extends \Cetera\Section
 {
-    public function getPath()
+    public function getUrl()
     {
-        parent::getPath();
-        if (!$this->_path) {
-            $this->_path = new Iterator\Catalog\Path($this);
+        global $currentCityAlias;
+        if ($currentCityAlias != '') {
+            $alias = '/' . $currentCityAlias;
+            return $alias . parent::getUrl();
+        } else {
+            return parent::getUrl();
         }
-        return $this->_path;
     }
 }
