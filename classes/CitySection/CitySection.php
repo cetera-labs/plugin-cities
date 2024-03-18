@@ -2,7 +2,7 @@
 
 namespace CitySection;
 
-class CitySection extends \Cetera\Section
+class CitySection extends \Cetera\Catalog
 {
     public function getUrl()
     {
