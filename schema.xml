@@ -27,6 +27,12 @@
                fixed="1" editor="0" editor_user="" default_value=""/>
         <field name="email" type="1" pseudo_type="0" description="Email[ru=Email]" length="255" show="1" required="0"
                fixed="1" editor="0" editor_user="" default_value=""/>
+        <field name="osnova" type="1" pseudo_type="0" description="Osnova[ru=Основной]" length="255" show="1" required="0"
+               fixed="1" editor="0" editor_user="" default_value=""/>
+        <field name="oblast" type="1" pseudo_type="0" description="Oblast[ru=Областной центр]" length="255" show="1" required="0"
+               fixed="1" editor="0" editor_user="" default_value=""/>
+        <field name="alias_alt" type="1" pseudo_type="0" description="AliasAlt[ru=Alias склонение]" length="255" show="1" required="0"
+               fixed="1" editor="0" editor_user="" default_value=""/>
     </object>
 
     <table name="cities_settings">
