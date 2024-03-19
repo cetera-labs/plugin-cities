@@ -19,7 +19,8 @@
   "autoload": {
     "psr-0": {
       "Cities\\": "classes/",
-      "CitySection\\": "classes/"
+      "CitySection\\": "classes/",
+      "MaterialSeo\\": "classes/"
     }
   },
   "extra": {
