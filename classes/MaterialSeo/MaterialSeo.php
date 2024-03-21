@@ -2,32 +2,47 @@
 
 namespace MaterialSeo;
 
-class MaterialSeo extends \Cetera\Widget\Material
+class MaterialSeo extends \Cetera\Material
 {
-    protected function init()
-    {
-        parent::init();
-        $m = $this->getMaterial();
-        if ($this->getParam('show_meta') && $m) {
-            if ($m->meta_title)
-                $name = $m->meta_title;
-            else $name = strip_tags($m->name);
 
-            if ($m->meta_description)
-                $short = strip_tags($m->meta_description);
-            else $short = strip_tags($m->short);
+    public function getMeta_title() {
+        return self::replaceAliasMaterials($this->fields['meta_title']);
+    }
 
-            $name = str_replace("[местгео]", 'mosk', $name);
-            $this->setMetaTitle($name);
-            $this->setMetaDescription($short);
-            $this->setMetaPicture($m->pic);
+    public function getMeta_description() {
+        return self::replaceAliasMaterials($this->fields['meta_description']);
+    }
 
-            $a = $this->application;
+    public function getMeta_keywords() {
+        return self::replaceAliasMaterials($this->fields['meta_keywords']);
+    }
 
-            if ($m->meta_keywords) {
-                $a->setPageProperty('keywords', $m->meta_keywords);
-            }
+    public function getName() {
+        return self::replaceAliasMaterials($this->fields['name']);
+    }
 
-        }
+    public function getText() {
+        return self::replaceAliasMaterials($this->fields['text']);
+    }
+
+    public static function replaceAliasMaterials($data) {
+        global $currentCity;
+        global $currentCityAlias;
+        global $currentCityPR;
+        global $currentPhone;
+        global $currentEmail;
+        global $currentAddres;
+        global $currentAddresNoCity;
+        global $currentOblastBool;
+        global $currentOsnovaBool;
+        global $currentCityRP;
+        $data = str_replace("[[имгео]]", $currentCity, $data);
+        $data = str_replace("[[местгео]]", $currentCityPR, $data);
+        $data = str_replace("[[родгео]]", $currentCityRP, $data);
+        $data = str_replace("[[email]]", $currentEmail, $data);
+        $data = str_replace("[[телефон]]", $currentPhone, $data);
+        $data = str_replace("[[адрес]]", $currentAddres, $data);
+        $data = str_replace("[[city]]", $currentAddres, $data);
+        return $data;
     }
 }
