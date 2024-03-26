@@ -55,6 +55,7 @@ class MaterialSeo extends \Cetera\Material
         $data = str_replace("[[адрес]]", $currentAddres, $data);
         $data = str_replace("[[city]]", $currentAddres, $data);
         $data = str_replace("[[алиас]]", $currentCityAlias, $data);
+        $data = str_replace('href="/', 'href="/'.$currentCityAlias.'/', $data);
         return $data;
     }
 }
