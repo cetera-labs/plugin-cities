@@ -38,13 +38,25 @@ class CitySection extends \Cetera\Catalog
         global $currentOblastBool;
         global $currentOsnovaBool;
         global $currentCityRP;
-        $data = str_replace("[[имгео]]", $currentCity, $data);
-        $data = str_replace("[[местгео]]", $currentCityPR, $data);
-        $data = str_replace("[[родгео]]", $currentCityRP, $data);
-        $data = str_replace("[[email]]", $currentEmail, $data);
-        $data = str_replace("[[телефон]]", $currentPhone, $data);
-        $data = str_replace("[[адрес]]", $currentAddres, $data);
-        $data = str_replace("[[city]]", $currentAddres, $data);
+		if ($currentCity) {
+            $data = str_replace("[[имгео]]", $currentCity, $data);
+        }
+        if ($currentCityPR) {
+            $data = str_replace("[[местгео]]", $currentCityPR, $data);
+        }
+        if ($currentCityRP) {
+            $data = str_replace("[[родгео]]", $currentCityRP, $data);
+        }
+        if ($currentEmail) {
+            $data = str_replace("[[email]]", $currentEmail, $data);
+        }
+        if ($currentPhone) {
+            $data = str_replace("[[телефон]]", $currentPhone, $data);
+        }
+        if ($currentAddres) {
+            $data = str_replace("[[адрес]]", $currentAddres, $data);
+            $data = str_replace("[[city]]", $currentAddres, $data);
+        }
         return $data;
     }
 }
