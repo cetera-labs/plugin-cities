@@ -20,8 +20,14 @@ class Utility
 
     public static function getProtocol()
     {
-        return 'http://';
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+            return $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://';
+        }
+
+        $isHttps = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+        return ($isHttps ? 'https' : 'http') . '://';
     }
+
 
     public static function isMainSite()
     {
