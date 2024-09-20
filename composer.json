@@ -11,7 +11,11 @@
     {
       "name": "Leonid Chesnokov",
       "role": "Support"
-    }
+    },
+      {
+          "name": "Samarin Igor",
+          "role": "Developer"
+      }
   ],
   "require": {
       "php": ">=7.4.0",
