@@ -1,21 +1,14 @@
 <?php
 
 namespace Cities\Accessory;
-
+use Pdp\Domain;
+use Pdp\TopLevelDomains;
 class Utility
 {
 
-    public static function getDomain($sub = false)
+    public static function getDomain($domain = null)
     {
-        $tmpServer = explode('.', $_SERVER['SERVER_NAME']);
-
-        if ($tmpServer[0] === 'www') {
-            $NtmpServer = array_slice($tmpServer, intval(1));
-            $str = implode(".", $NtmpServer);
-        } else {
-            $str = implode(".", $tmpServer);
-        }
-        return $str;
+        /** @todo implement here*/
     }
 
     public static function getProtocol()

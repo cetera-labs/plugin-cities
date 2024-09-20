@@ -5,7 +5,7 @@ namespace Cities\Reason;
 
 use \Cities\Accessory\Utility;
 
-Class City
+class City
 {
 
     const  MATERIAL_TYPE = 'cities';
@@ -14,7 +14,9 @@ Class City
 
     private $od;
 
-    public static $city;
+    public $city;
+
+    protected const DEFAULT_CITY = 'moscow';
 
     public function __construct()
     {
@@ -22,11 +24,25 @@ Class City
         $this->settings = \Cities\Accessory\Settings::getInstance();
 
         $this->host = Utility::getDomain(true);
+
         $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
 
+        /** @var \Cetera\Material $materials */
         $materials = $this->od->getMaterials()->where('alias like "' . $this->host . '"');
+        $defaultCityMaterial = $this->od->getMaterials()->where('alias like "' . self::DEFAULT_CITY . '"');
 
-        $this->city = $materials[0];
+        if ($materials->count() > 0) {
+            $this->city = $materials[0];
+            //var_dump($materials[0]);
+        }else if  ($defaultCityMaterial->count()){
+            //var_dump($defaultCityMaterial);
+            return $this->city = $defaultCityMaterial[0];
+        } else{
+
+            echo "foo";
+        }
+
+
     }
 
     public function getCities($citiesList = [])

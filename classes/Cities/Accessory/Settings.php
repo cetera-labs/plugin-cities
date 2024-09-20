@@ -52,7 +52,15 @@ Class Settings
             ->where('id', 1)
             ->execute();
 
-        return $r->fetch();
+
+        /** @var \Doctrine\DBAL\ForwardCompatibility\Result $r */
+        if ($r && $r->rowCount()) {
+           return $r->fetch();
+        }
+
+
+
+        return [""];
     }
 
     public function getFieldByName($name)

@@ -14,10 +14,13 @@
     }
   ],
   "require": {
+      "php": ">=7.4.0",
+      "jeremykendall/php-domain-parser":"^6.0"
   },
+
   "minimum-stability": "dev",
   "autoload": {
-    "psr-0": {
+    "psr-4": {
       "Cities\\": "classes/",
       "CitySection\\": "classes/",
       "MaterialSeo\\": "classes/"
