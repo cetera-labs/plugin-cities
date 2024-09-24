@@ -38,6 +38,9 @@ class CitySection extends \Cetera\Catalog
         global $currentOblastBool;
         global $currentOsnovaBool;
         global $currentCityRP;
+
+
+
 		if ($currentCity) {
             $data = str_replace("[[имгео]]", $currentCity, $data);
         }

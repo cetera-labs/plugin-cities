@@ -10,26 +10,28 @@ class City
 
     const  MATERIAL_TYPE = 'cities';
 
-    private $host;
+    public $cityAlias;
 
     private $od;
 
     public $city;
 
-    protected const DEFAULT_CITY = 'moscow';
+    const DEFAULT_CITY_ALIAS = 'moscow';
 
     public function __construct()
     {
 
         $this->settings = \Cities\Accessory\Settings::getInstance();
 
-        $this->host = Utility::getDomain(true);
+        $this->cityAlias = Utility::getDomainAlias();
 
         $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
 
         /** @var \Cetera\Material $materials */
-        $materials = $this->od->getMaterials()->where('alias like "' . $this->host . '"');
-        $defaultCityMaterial = $this->od->getMaterials()->where('alias like "' . self::DEFAULT_CITY . '"');
+        $materials = $this->od->getMaterials()->where('alias like "' . $this->cityAlias . '"');
+
+
+        $defaultCityMaterial = $this->od->getMaterials()->where('alias like "' . self::DEFAULT_CITY_ALIAS . '"');
 
         $baseDomain = "";
         if ($materials->count() > 0) {

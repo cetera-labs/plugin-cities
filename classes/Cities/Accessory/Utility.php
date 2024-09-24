@@ -1,15 +1,26 @@
 <?php
 
 namespace Cities\Accessory;
+
 use Pdp\Domain;
-use Pdp\TopLevelDomains;
+use Pdp\TopLevelDomains as topLevelDomains;
+use Pdp\Suffix;
+use Pdp\Rules;
 class Utility
 {
 
-    public static function getDomain($domain = null)
+    public static function getDomain()
     {
-        /** @todo implement here*/
+        return $_SERVER['SERVER_NAME'];
     }
+
+    public static function getDomainAlias($domain = null){
+        $domain = ($domain)? $domain : $_SERVER['SERVER_NAME'];
+        $cDomain = Domain::fromIDNA2008($domain);
+        $labels = $cDomain->labels();
+        return end($labels);
+    }
+
 
     public static function getProtocol()
     {
@@ -22,11 +33,12 @@ class Utility
     }
 
 
-    public static function isMainSite()
+    public static function isMainSite($domain = null)
     {
-
-        return Utility::getDomain() == $_SERVER['SERVER_NAME'];
-
+        $domain = ($domain)? $domain : $_SERVER['SERVER_NAME'];
+        $cDomain = Domain::fromIDNA2008($domain);
+        $labels = $cDomain->labels();
+        return count($labels) < 3;
     }
 
 

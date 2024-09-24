@@ -3,6 +3,8 @@
 
 $application = \Cetera\Application::getInstance();
 
+$twig = $application->getTwig();
+
 $t = $this->getTranslator();
 
 $t->addTranslation(__DIR__ . '/lang');
@@ -32,6 +34,14 @@ if ($this->getBo() && $this->getUser() && $this->getUser()->isAdmin()) {
         'class' => 'Plugin.cities.Panel'
     ));
 }
+
+
+try {
+    \Cities\Accessory\Init::init($twig);
+} catch (Exception $e) {
+
+}
+
 
 $material = new \Cities\Reason\City();
 
@@ -69,3 +79,4 @@ if (!empty($material->settings->fields['sitemap_file']) && $material->settings->
 
     });
 }
+

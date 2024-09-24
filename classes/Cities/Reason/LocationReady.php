@@ -24,11 +24,7 @@ Class LocationReady
     {
 
         $this->cityInstance = new  \Cities\Reason\City();
-
-
         $this->city = $this->cityInstance->city;
-
-
         if (is_string($arrayCities)) {
             $arrayCitiesAlso = explode(',', $arrayCities);
         } else {
