@@ -5,6 +5,8 @@ $application = \Cetera\Application::getInstance();
 
 $t = $this->getTranslator();
 
+$twig = $application->getTwig();
+
 $t->addTranslation(__DIR__ . '/lang');
 
 $this->registerWidget(array(
@@ -43,7 +45,7 @@ if ($this->getBo() && $this->getUser() && $this->getUser()->isAdmin()) {
 
 
 try {
-    \Cities\Accessory\Init::init($t);
+    \Cities\Accessory\Init::init($twig);
 } catch (Exception $e) {
 
 }
