@@ -11,23 +11,17 @@
     {
       "name": "Leonid Chesnokov",
       "role": "Support"
-    },
-      {
-          "name": "Samarin Igor",
-          "role": "Developer"
-      }
+    }
   ],
   "require": {
-      "php": ">=7.4.0",
-      "jeremykendall/php-domain-parser":"^6.0"
   },
-
   "minimum-stability": "dev",
   "autoload": {
     "psr-0": {
       "Cities\\": "classes/",
       "CitySection\\": "classes/",
-      "MaterialSeo\\": "classes/"
+      "MaterialSeo\\": "classes/",
+      "MenuUserSeo\\": "classes/"
     }
   },
   "extra": {

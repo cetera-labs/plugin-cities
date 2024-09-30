@@ -1,0 +1,15 @@
+{# главное меню #}
+<ul data-tets="6" data-alias="{{ widget.getParam('alias') }}" {% if widget.getParam('css_class') %} class="{{  widget.getParam('css_class') }}"{% endif %}>
+
+	{% for c in widget.children %}
+
+    <li{% if widget.getParam('css_class') %} class="{{  widget.getParam('css_class') }}__item"{% endif %}>
+        <a href="{{ c.url }}"{% if widget.getParam('css_class') %} class="{{  widget.getParam('css_class') }}__link"{% endif %} title="{{ c.name }}">{{ c.name|raw }}</a>
+		{% if c.children is defined and c.children|length > 0 %}
+			{% widget 'Menu' with { catalog: c, css_class: 'menu-base', depth: 0 } %}
+		{% endif %}
+    </li>
+
+    {% endfor %}
+
+</ul>
