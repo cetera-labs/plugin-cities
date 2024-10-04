@@ -21,3 +21,12 @@ down:
 
 bash:
 	$(RUN_PHP) bash
+
+psalm:
+	$(RUN_PHP) ./vendor/bin/psalm --debug
+psalm_raw:
+	$(RUN_PHP) ./vendor/bin/psalm --debug --no-cache
+phpcs:
+	$(RUN_PHP) phpcs --colors --encoding=utf-8 --extensions=php --standard=PSR1,PSR12 ./app
+phpcbf:
+	$(RUN_PHP) phpcbf --colors --encoding=utf-8 --extensions=php --standard=PSR1,PSR12 ./app
