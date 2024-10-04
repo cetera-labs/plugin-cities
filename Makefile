@@ -27,6 +27,6 @@ psalm:
 psalm_raw:
 	$(RUN_PHP) ./vendor/bin/psalm --debug --no-cache
 phpcs:
-	$(RUN_PHP) phpcs --colors --encoding=utf-8 --extensions=php --standard=PSR1,PSR12 ./app
+	$(RUN_PHP) ./vendor/bin/phpcs --colors --encoding=utf-8 --extensions=php --standard=PSR1,PSR12 ./classes
 phpcbf:
-	$(RUN_PHP) phpcbf --colors --encoding=utf-8 --extensions=php --standard=PSR1,PSR12 ./app
+	$(RUN_PHP) ./vendor/bin/phpcbf --colors --encoding=utf-8 --extensions=php --standard=PSR1,PSR12 ./classes
