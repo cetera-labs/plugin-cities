@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  php:
+    build:
+      context: ..
+      dockerfile: ${PWD}/etc/php/Dockerfile
+    image: plugin-cities-php
+    user: "1000:1000"
+    container_name: plugin-cities-php
+    environment:
+      RUN_MODE: development
+      TZ: ${TZ:-Europe/Moscow}
+      XDEBUG_MODE: develop,debug
+      XDEBUG_CONFIG: client_host=host.docker.internal start_with_request=yes
+    volumes:
+      - ${PWD}:/var/www/_default:delegated
+      - ${PWD}/etc/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "6003:6003"
+
