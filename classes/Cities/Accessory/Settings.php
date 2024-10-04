@@ -2,10 +2,8 @@
 
 namespace Cities\Accessory;
 
-Class Settings
+class Settings
 {
-
-
     private $connect;
 
     private $a;
@@ -55,7 +53,7 @@ Class Settings
 
         /** @var \Doctrine\DBAL\ForwardCompatibility\Result $r */
         if ($r && $r->rowCount()) {
-           return $r->fetch();
+            return $r->fetch();
         }
 
 
@@ -82,5 +80,4 @@ Class Settings
 
         return $r;
     }
-
 }

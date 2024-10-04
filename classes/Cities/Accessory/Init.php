@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Cities\Accessory;
 
 /**
@@ -13,7 +12,6 @@ namespace Cities\Accessory;
  */
 class Init
 {
-
     /**
      *
      */
@@ -41,13 +39,12 @@ class Init
         $currentCityPR = "";
         $currentPhone = $city->city->phone;
         $currentEmail = $city->city->email;
-        $currentAddres = $city->city->addres;;
+        $currentAddres = $city->city->addres;
+        ;
         $currentAddresNoCity = $city->city->addres;
         $currentOblastBool = "";
         $currentOsnovaBool = "";
         $currentCityRP = "";
-
-
     }
 
     /**

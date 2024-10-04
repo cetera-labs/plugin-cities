@@ -4,8 +4,6 @@ namespace Cities;
 
 class WidgetCity extends \Cetera\Widget\Templateable
 {
-
-
     public static $material;
 
     protected $_params = array(
@@ -18,7 +16,8 @@ class WidgetCity extends \Cetera\Widget\Templateable
             $city = new \Cities\Reason\City();
             $this->material = $city->city;
         }
-        if (!$this->material) return false;
+        if (!$this->material) {
+            return false;
+        }
     }
-
 }

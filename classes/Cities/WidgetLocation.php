@@ -4,7 +4,6 @@ namespace Cities;
 
 class WidgetLocation extends \Cetera\Widget\Templateable
 {
-
     public static $location;
 
     protected $_params = array(

@@ -2,11 +2,10 @@
 
 namespace Cities\Reason;
 
-use \Cities\Accessory\Utility;
+use Cities\Accessory\Utility;
 
-Class LocationReady
+class LocationReady
 {
-
     const  MATERIAL_TYPE = 'cities';
 
     public static $city;
@@ -32,19 +31,14 @@ Class LocationReady
         }
 
         $this->cities = $this->cityInstance->getCities($arrayCitiesAlso);
-
     }
 
     public function startRedirect()
     {
-
     }
 
     public function isIp()
     {
         return array_key_exists($this->cityInstance->settings->fields['server_city_key'], $_SERVER) && isset($_SERVER[$this->cityInstance->settings->fields['server_city_key']]);
-
     }
-
-
 }

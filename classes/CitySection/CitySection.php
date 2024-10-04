@@ -1,12 +1,13 @@
 <?php
 
 namespace CitySection;
-use \Cities\Traits\ReplaceAlias;
+
+use Cities\Traits\ReplaceAlias;
 
 class CitySection extends \Cetera\Catalog
 {
-
     use ReplaceAlias;
+
     public function getUrl()
     {
         global $currentCityAlias;
@@ -17,6 +18,4 @@ class CitySection extends \Cetera\Catalog
             return parent::getUrl();
         }
     }
-
-
 }

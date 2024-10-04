@@ -2,21 +2,25 @@
 
 namespace Cities\Traits;
 
-trait ReplaceAlias{
-
-    public function getMeta_title() {
+trait ReplaceAlias
+{
+    public function getMeta_title()
+    {
         return self::replaceAlias($this->fields['meta_title']);
     }
 
-    public function getMeta_description() {
+    public function getMeta_description()
+    {
         return self::replaceAlias($this->fields['meta_description']);
     }
 
-    public function getMeta_keywords() {
+    public function getMeta_keywords()
+    {
         return self::replaceAlias($this->fields['meta_keywords']);
     }
 
-    public static function replaceAlias($data) {
+    public static function replaceAlias($data)
+    {
         global $currentCity;
         global $currentCityAlias;
         global $currentCityPR;

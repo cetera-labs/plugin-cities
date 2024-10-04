@@ -1,13 +1,11 @@
 <?php
 
-
 namespace Cities\Reason;
 
-use \Cities\Accessory\Utility;
+use Cities\Accessory\Utility;
 
 class City
 {
-
     const  MATERIAL_TYPE = 'cities';
 
     public $cityAlias;
@@ -36,7 +34,7 @@ class City
         $baseDomain = "";
         if ($materials->count() > 0) {
             $this->city = $materials[0];
-        } else if ($defaultCityMaterial->count()) {
+        } elseif ($defaultCityMaterial->count()) {
             $this->city = $defaultCityMaterial[0];
         }
 
@@ -48,8 +46,6 @@ class City
 
         $cities = $this->od->getMaterials();
         return $this->setLinks($cities);
-
-
     }
 
     public function setLinks($materials)
