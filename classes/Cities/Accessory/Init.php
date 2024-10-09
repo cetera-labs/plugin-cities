@@ -133,6 +133,7 @@ class Init
         $title = str_replace("[[адрес]]", $currentAddres, $title);
         $title = str_replace("[[city]]", $currentAddres, $title);
         $a->setPageProperty('title', $title);
+        $a->addHeadString('<meta property="og:title" content="'.$title.'">', 'og:title');
 
         $catCpy = $c;
         while (!$a->getPageProperty('keywords') && !$catCpy->isRoot()) {
