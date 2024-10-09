@@ -59,7 +59,7 @@ class City
     /**
      * @return Material|null
      */
-    public function getCity()
+    public function getCityMaterial()
     {
         return $this->city;
     }
