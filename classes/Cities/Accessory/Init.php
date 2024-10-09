@@ -61,15 +61,14 @@ class Init
 
         $currentCity = $fields['name'];
         $currentCityAlias = $cityObject->cityAlias;
-        $currentCityPR = "";
+        $currentCityPR = $fields['city_pr'];
         $currentPhone = $fields['phone'];
         $currentEmail = $fields['email'];
         $currentAddres = $fields['addres'];
-
         $currentAddresNoCity = $fields['addres'];
-        $currentOblastBool = "";
-        $currentOsnovaBool = "";
-        $currentCityRP = "";
+        $currentOblastBool = (bool)$fields['oblast'];
+        $currentOsnovaBool = (bool)$fields['osnova'];
+        $currentCityRP = $fields['city_rp'];
     }
 
     /**
