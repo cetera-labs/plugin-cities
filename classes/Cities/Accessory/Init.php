@@ -53,7 +53,7 @@ class Init
         $cityObject = new \Cities\Reason\City();
         $city = $cityObject->getCityMaterial();
 
-        if (!$city || !$city instanceof \Cetera\Material) {
+        if (!$city instanceof \Cetera\Material) {
             return;
         }
 
