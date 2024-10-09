@@ -24,6 +24,7 @@ class Init
 
         self::initGlobalVariables();
         self::setTwigGlobals($twig);
+        self::fillMetas();
     }
 
     /**
@@ -99,6 +100,66 @@ class Init
         $twig->addGlobal('currentOblastBool', $currentOblastBool);
         $twig->addGlobal('currentOsnovaBool', $currentOsnovaBool);
         $twig->addGlobal('currentCityRP', $currentCityRP);
+
+    }
+
+    public static function fillMetas()
+    {
+        global $currentCity;
+//        global $currentCityAlias;
+        global $currentCityPR;
+        global $currentPhone;
+        global $currentEmail;
+        global $currentAddres;
+//        global $currentAddresNoCity;
+//        global $currentOblastBool;
+//        global $currentOsnovaBool;
+        global $currentCityRP;
+
+        $a = \Cetera\Application::getInstance();
+        // Сервер
+        $s = $a->getServer();
+
+// Активный раздел
+        $c = $a->getCatalog();
+
+
+        $title = ($s->meta_title) ? $s->meta_title : $s->name;
+        $title = str_replace("[[имгео]]", $currentCity, $title);
+        $title = str_replace("[[местгео]]", $currentCityPR, $title);
+        $title = str_replace("[[родгео]]", $currentCityRP, $title);
+        $title = str_replace("[[email]]", $currentEmail, $title);
+        $title = str_replace("[[телефон]]", $currentPhone, $title);
+        $title = str_replace("[[адрес]]", $currentAddres, $title);
+        $title = str_replace("[[city]]", $currentAddres, $title);
+        $a->setPageProperty('title', $title);
+
+        $catCpy = $c;
+        while (!$a->getPageProperty('keywords') && !$catCpy->isRoot()) {
+            $metaKeywords = str_replace("[[имгео]]", $currentCity, $catCpy->meta_keywords);
+            $metaKeywords = str_replace("[[местгео]]", $currentCityPR, $metaKeywords);
+            $metaKeywords = str_replace("[[родгео]]", $currentCityRP, $metaKeywords);
+            $metaKeywords = str_replace("[[email]]", $currentEmail, $metaKeywords);
+            $metaKeywords = str_replace("[[телефон]]", $currentPhone, $metaKeywords);
+            $metaKeywords = str_replace("[[адрес]]", $currentAddres, $metaKeywords);
+            $metaKeywords = str_replace("[[city]]", $currentAddres, $metaKeywords);
+            $a->setPageProperty('keywords', $metaKeywords);
+            $catCpy = $catCpy->getParent();
+        }
+
+        $catCpy = $c;
+        while (!$a->getPageProperty('description') && !$catCpy->isRoot()) {
+            $metaDescription = str_replace("[[имгео]]", $currentCity, $catCpy->meta_description);
+            $metaDescription = str_replace("[[местгео]]", $currentCityPR, $metaDescription);
+            $metaDescription = str_replace("[[родгео]]", $currentCityRP, $metaDescription);
+            $metaDescription = str_replace("[[email]]", $currentEmail, $metaDescription);
+            $metaDescription = str_replace("[[телефон]]", $currentPhone, $metaDescription);
+            $metaDescription = str_replace("[[адрес]]", $currentAddres, $metaDescription);
+            $metaDescription = str_replace("[[city]]", $currentAddres, $metaDescription);
+            $a->setPageProperty('description', $metaDescription);
+            $a->addHeadString('<meta property="og:description" content="' . htmlspecialchars($metaDescription) . '">', 'og:description');
+            $catCpy = $catCpy->getParent();
+        }
 
     }
 }
