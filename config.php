@@ -51,7 +51,7 @@ try {
 
 
 $cityObject = new \Cities\Reason\City();
-$material = $cityObject->getCity();
+$material = $cityObject->getCityMaterial();
 
 if (!empty($material->settings->fields['robots_file'])) {
 
