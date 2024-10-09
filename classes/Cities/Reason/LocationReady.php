@@ -2,8 +2,6 @@
 
 namespace Cities\Reason;
 
-use Cities\Accessory\Utility;
-
 class LocationReady
 {
     const  MATERIAL_TYPE = 'cities';
@@ -11,13 +9,9 @@ class LocationReady
     public static $city;
 
     public static $cityInstance;
-
-    protected $_cities;
-
     public $arrayCities;
-
     public $redirect;
-
+    protected $_cities;
 
     public function __construct($arrayCities = [])
     {

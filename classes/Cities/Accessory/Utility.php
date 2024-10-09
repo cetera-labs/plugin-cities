@@ -3,9 +3,6 @@
 namespace Cities\Accessory;
 
 use Pdp\Domain;
-use Pdp\TopLevelDomains as topLevelDomains;
-use Pdp\Suffix;
-use Pdp\Rules;
 
 class Utility
 {
@@ -16,6 +13,10 @@ class Utility
 
     public static function getDomainAlias($domain = null)
     {
+        if (getenv("RUN_MODE", true) === 'development') {
+            return 'yaroslavl';
+        }
+
         $domain = ($domain) ? $domain : $_SERVER['SERVER_NAME'];
         $cDomain = Domain::fromIDNA2008($domain);
         $labels = $cDomain->labels();

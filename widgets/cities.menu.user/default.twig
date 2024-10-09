@@ -1,14 +1,15 @@
 {# стандартное меню на UL/LI #}
 {% block html %}
-<ul{% if widget.getParam('css_class') %} class="{{  widget.getParam('css_class') }}"{% endif %} data-test="4">
+    <ul{% if widget.getParam('css_class') %} class="{{ widget.getParam('css_class') }}"{% endif %} data-test="4">
 
-	{% for c in widget.children %}
+        {% for c in widget.children %}
 
-    <li{% if widget.getParam('css_class') %} class="{{  widget.getParam('css_class') }}__item"{% endif %}>
-        <a href="{{ c.url }}"{% if widget.getParam('css_class') %} class="{{  widget.getParam('css_class') }}__link"{% endif %} title="{{ c.name }}">{{ c.name|raw }}</a>
-    </li>
+            <li{% if widget.getParam('css_class') %} class="{{ widget.getParam('css_class') }}__item"{% endif %}>
+                <a href="{{ c.url }}"{% if widget.getParam('css_class') %} class="{{ widget.getParam('css_class') }}__link"{% endif %}
+                   title="{{ c.name }}">{{ c.name|raw }}</a>
+            </li>
 
-    {% endfor %}
+        {% endfor %}
 
-</ul>
+    </ul>
 {% endblock %}

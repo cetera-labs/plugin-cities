@@ -1,6 +1,5 @@
 <?php
 
-
 $application = \Cetera\Application::getInstance();
 
 $t = $this->getTranslator();
@@ -29,9 +28,10 @@ $this->registerWidget(array(
     'name' => 'cities.menu.user',
     'class' => '\\Cities\\MenuUserSeo',
     'describ' => $t->_('Пользовательское SEO меню'),
-    'icon'=>'city.png',
+    'icon' => 'city.png',
     'ui' => 'Plugin.cities.Widget',
 ));
+
 
 if ($this->getBo() && $this->getUser() && $this->getUser()->isAdmin()) {
     $this->getBo()->addModule(array(
@@ -47,7 +47,6 @@ if ($this->getBo() && $this->getUser() && $this->getUser()->isAdmin()) {
 try {
     \Cities\Accessory\Init::init($twig);
 } catch (Exception $e) {
-
 }
 
 

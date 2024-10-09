@@ -13,6 +13,20 @@ namespace Cities\Accessory;
 class Init
 {
     /**
+     * @param \Twig_Environment $twig
+     * @return void
+     */
+    public static function init(\Twig_Environment $twig)
+    {
+        /**
+         * @todo add cache for this
+         */
+
+        self::initGlobalVariables();
+        self::setTwigGlobals($twig);
+    }
+
+    /**
      *
      */
     protected static function initGlobalVariables()
@@ -33,15 +47,26 @@ class Init
             return;
         }
 
-        $city = new \Cities\Reason\City();
-        $currentCity = $city->city->name;
-        $currentCityAlias = $city->city->cityAlias;
+        /**
+         * @var $city \Cities\Reason\City
+         */
+        $cityObject = new \Cities\Reason\City();
+        $city = $cityObject->getCity();
+
+        if (!$city || !$city instanceof \Cetera\Material) {
+            return;
+        }
+
+        $fields = $city->fields;
+
+        $currentCity = $fields['name'];
+        $currentCityAlias = $cityObject->cityAlias;
         $currentCityPR = "";
-        $currentPhone = $city->city->phone;
-        $currentEmail = $city->city->email;
-        $currentAddres = $city->city->addres;
-        ;
-        $currentAddresNoCity = $city->city->addres;
+        $currentPhone = $fields['phone'];
+        $currentEmail = $fields['email'];
+        $currentAddres = $fields['addres'];
+
+        $currentAddresNoCity = $fields['addres'];
         $currentOblastBool = "";
         $currentOsnovaBool = "";
         $currentCityRP = "";
@@ -75,19 +100,6 @@ class Init
         $twig->addGlobal('currentOblastBool', $currentOblastBool);
         $twig->addGlobal('currentOsnovaBool', $currentOsnovaBool);
         $twig->addGlobal('currentCityRP', $currentCityRP);
-    }
 
-    /**
-     * @param \Twig_Environment $twig
-     * @return void
-     */
-    public static function init(\Twig_Environment $twig)
-    {
-        /**
-         * @todo add cache for this
-         */
-
-        self::initGlobalVariables();
-        self::setTwigGlobals($twig);
     }
 }

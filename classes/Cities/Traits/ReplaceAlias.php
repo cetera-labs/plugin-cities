@@ -9,16 +9,6 @@ trait ReplaceAlias
         return self::replaceAlias($this->fields['meta_title']);
     }
 
-    public function getMeta_description()
-    {
-        return self::replaceAlias($this->fields['meta_description']);
-    }
-
-    public function getMeta_keywords()
-    {
-        return self::replaceAlias($this->fields['meta_keywords']);
-    }
-
     public static function replaceAlias($data)
     {
         global $currentCity;
@@ -31,7 +21,6 @@ trait ReplaceAlias
         global $currentOblastBool;
         global $currentOsnovaBool;
         global $currentCityRP;
-
 
 
         if ($currentCity) {
@@ -54,5 +43,15 @@ trait ReplaceAlias
             $data = str_replace("[[city]]", $currentAddres, $data);
         }
         return $data;
+    }
+
+    public function getMeta_description()
+    {
+        return self::replaceAlias($this->fields['meta_description']);
+    }
+
+    public function getMeta_keywords()
+    {
+        return self::replaceAlias($this->fields['meta_keywords']);
     }
 }

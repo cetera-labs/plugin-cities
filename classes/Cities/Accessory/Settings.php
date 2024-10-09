@@ -4,23 +4,11 @@ namespace Cities\Accessory;
 
 class Settings
 {
-    private $connect;
-
-    private $a;
-
-    public $fields;
-
-    private $querybuilder;
-
     const  SETTINGS_TABLE = "`cities_settings`";
-
-
-    public static function getInstance()
-    {
-        static $instance;
-
-        return !is_null($instance) ? $instance : $instance = new Settings();
-    }
+    public $fields;
+    private $connect;
+    private $a;
+    private $querybuilder;
 
     private function __construct()
     {
@@ -31,14 +19,11 @@ class Settings
         $this->fields = $this->getFields();
     }
 
-    public function setFields($field, $value)
+    public static function getInstance()
     {
+        static $instance;
 
-        $r = $this->querybuilder
-            ->update(self::SETTINGS_TABLE)
-            ->set($field, $this->querybuilder->expr()->literal($value))
-            ->where('id', 1)
-            ->execute();
+        return !is_null($instance) ? $instance : $instance = new Settings();
     }
 
     public function getFields()
@@ -57,8 +42,17 @@ class Settings
         }
 
 
-
         return [""];
+    }
+
+    public function setFields($field, $value)
+    {
+
+        $r = $this->querybuilder
+            ->update(self::SETTINGS_TABLE)
+            ->set($field, $this->querybuilder->expr()->literal($value))
+            ->where('id', 1)
+            ->execute();
     }
 
     public function getFieldByName($name)

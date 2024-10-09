@@ -2,22 +2,23 @@
 
 namespace Cities\Reason;
 
+use Cetera\Material;
 use Cities\Accessory\Utility;
 
 class City
 {
     const  MATERIAL_TYPE = 'cities';
-
+    const DEFAULT_CITY_ALIAS = 'moscow';
     public $cityAlias;
-
+    public $city;
     private $od;
 
-    public $city;
-
-    const DEFAULT_CITY_ALIAS = 'moscow';
-
+    /**
+     * @return Material
+     */
     public function __construct()
     {
+
 
         $this->settings = \Cities\Accessory\Settings::getInstance();
 
@@ -25,19 +26,41 @@ class City
 
         $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
 
-        /** @var \Cetera\Material $materials */
-        $materials = $this->od->getMaterials()->where('alias like "' . $this->cityAlias . '"');
+        /** @var \Cetera\Iterator\Material $materials */
+        $alias = $this->cityAlias;
 
+        $materials = $this->od->getMaterials()->where("`alias` LIKE '{$alias}'");
 
-        $defaultCityMaterial = $this->od->getMaterials()->where('alias like "' . self::DEFAULT_CITY_ALIAS . '"');
+        if (!$materials->count()) {
+            /** @var \Cetera\Iterator\Material $defaultCityMaterial */
+            $alias = self::DEFAULT_CITY_ALIAS;
+            $materials = $this->od->getMaterials()->where("`alias` LIKE '{$alias}'");
 
-        $baseDomain = "";
-        if ($materials->count() > 0) {
-            $this->city = $materials[0];
-        } elseif ($defaultCityMaterial->count()) {
-            $this->city = $defaultCityMaterial[0];
         }
 
+        if (!$materials->count()) {
+            $materials = $this->od->getMaterials()->where("`osnove` = 1");
+        }
+
+        if (!$materials->count()) {
+
+            $materials = $this->od->getMaterials();
+
+
+        }
+
+        try {
+            $this->city = $materials[0];
+        } catch (\Exception $e) {
+
+        }
+    }
+
+    /**
+     * @return Material|null
+     */
+    public function getCity()
+    {
         return $this->city;
     }
 
