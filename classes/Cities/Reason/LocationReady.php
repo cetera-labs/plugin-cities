@@ -17,7 +17,8 @@ class LocationReady
     public function __construct($arrayCities = [])
     {
 
-        $this->cityInstance = new  \Cities\Reason\City();
+        $cityObject = new  \Cities\Reason\City();
+        $this->cityInstance = $cityObject->city;
         $this->city = $this->cityInstance->city;
         if (is_string($arrayCities)) {
             $arrayCitiesAlso = explode(',', $arrayCities);

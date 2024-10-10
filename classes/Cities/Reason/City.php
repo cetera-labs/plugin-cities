@@ -28,7 +28,7 @@ class City
             if (count($materials)) {
                 $this->city = $materials[0];
                 $this->cityAlias = $this->city['alias'];
-                self::redirect($this->cityAlias);
+               // self::redirect($this->cityAlias);
             }
         } else {
 

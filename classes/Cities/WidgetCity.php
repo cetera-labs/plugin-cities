@@ -14,8 +14,9 @@ class WidgetCity extends \Cetera\Widget\Templateable
     public function init()
     {
         if (sizeof($this->material) == 0) {
-            $city = new \Cities\Reason\City();
-            $this->material = $city->city;
+            $cObject =  new \Cities\Reason\City();
+
+            $this->material = $cObject->city;
         }
         if (!$this->material) {
             return false;
