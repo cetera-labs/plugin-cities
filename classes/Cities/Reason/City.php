@@ -84,21 +84,9 @@ class City
 
     protected static function redirect($alias)
     {
-        return;
-        /**
-         * @todo redirect to main; complete with current page;
-         */
-        if (getenv('RUN_MODE') !== 'development') {
-            $domain = Utility::getDomain();
-            if (str_contains($domain, 'www')) {
-                $domain = str_replace('www', $alias, $domain);
-                header("Location: https://$domain");
-                die();
-            }
-            $location = 'https://' . $alias . '.' . Utility::getDomain();
-            header("Location: $location");
-            die();
-        }
+        $location = Utility::getDomain() . "/$alias/";
+        header("Location: $location");
+        die();
     }
 
 }
