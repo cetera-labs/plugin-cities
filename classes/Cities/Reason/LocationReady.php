@@ -1,5 +1,5 @@
 <?php
-
+//hot reload
 namespace Cities\Reason;
 
 class LocationReady
