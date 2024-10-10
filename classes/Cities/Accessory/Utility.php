@@ -20,6 +20,12 @@ class Utility
         $domain = ($domain) ? $domain : $_SERVER['SERVER_NAME'];
         $cDomain = Domain::fromIDNA2008($domain);
         $labels = $cDomain->labels();
+
+
+        if (($key = array_search('www', $labels)) !== false) {
+            unset($labels[$key]);
+        }
+
         return end($labels);
     }
 
