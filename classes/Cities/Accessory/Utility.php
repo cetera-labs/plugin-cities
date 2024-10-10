@@ -31,14 +31,14 @@ class Utility
 //        return end($labels);
 
         $tmpServer = explode('.', $_SERVER['SERVER_NAME']);
-
         if ($tmpServer[0] === 'www') {
             $NtmpServer = array_slice($tmpServer, intval(1));
             $str = implode(".", $NtmpServer);
         } else {
             $str = implode(".", $tmpServer);
         }
-        return $str;
+
+        return explode(".", $str)[0];
     }
 
 
