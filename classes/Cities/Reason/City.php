@@ -84,6 +84,7 @@ class City
 
     protected static function redirect($alias)
     {
+        return;
         /**
          * @todo redirect to main; complete with current page;
          */
