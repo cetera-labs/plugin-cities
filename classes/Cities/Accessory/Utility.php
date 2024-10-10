@@ -55,10 +55,7 @@ class Utility
 
     public static function isMainSite($domain = null)
     {
-        $domain = ($domain) ? $domain : $_SERVER['SERVER_NAME'];
-        $cDomain = Domain::fromIDNA2008($domain);
-        $labels = $cDomain->labels();
-        return count($labels) < 3;
+        return Utility::getDomain() == $_SERVER['SERVER_NAME'];
     }
 
 
