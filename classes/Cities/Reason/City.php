@@ -26,8 +26,19 @@ class City
 
         $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
 
-        /** @var \Cetera\Iterator\Material $materials */
-        $alias = $this->cityAlias;
+
+        if (Utility::isMainSite()){
+            $materials = $this->od->getMaterials()->where("osnova = true");
+            if (count($materials)){
+                $this->city  = $materials[0];
+            }
+        }
+        return
+
+
+
+            /** @var \Cetera\Iterator\Material $materials */
+            $alias = $this->cityAlias;
 
         $materials = $this->od->getMaterials()->where("`alias` LIKE '{$alias}'");
 
