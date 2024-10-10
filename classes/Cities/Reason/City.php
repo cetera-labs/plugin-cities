@@ -84,6 +84,7 @@ class City
 
     protected static function redirect($alias)
     {
+        return;
         $location = Utility::getDomain() . "/$alias/";
         header("Location: $location");
         die();
