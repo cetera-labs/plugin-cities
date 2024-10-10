@@ -13,32 +13,20 @@ class Utility
 
     public static function getDomainAlias($domain = null)
     {
-//        if (getenv("RUN_MODE", true) === 'development') {
-//            return 'yaroslavl';
-//        }
+        $domain = ($domain) ? $domain : $_SERVER['SERVER_NAME'];
+        $parsed = parse_url($domain);
+        $host = $parsed['host'] ?? $parsed['path'];
 
-//        $domain = ($domain) ? $domain : $_SERVER['SERVER_NAME'];
-//        $cDomain = Domain::fromIDNA2008($domain);
-//        $labels = $cDomain->labels();
-//
-//        var_dump($labels);
-//
-//
-//        if (($key = array_search('www', $labels)) !== false) {
-//            unset($labels[$key]);
-//        }
-//
-//        return end($labels);
+        if (strpos($host, 'www.') === 0) {
+            $host = substr($host, 4);
+        }
+        $exploded = explode('.', $host);
 
-        $tmpServer = explode('.', $_SERVER['SERVER_NAME']);
-        if ($tmpServer[0] === 'www') {
-            $NtmpServer = array_slice($tmpServer, intval(1));
-            $str = implode(".", $NtmpServer);
-        } else {
-            $str = implode(".", $tmpServer);
+        if (count($exploded) > 2) {
+            return $exploded[0];
         }
 
-        return explode(".", $str)[0];
+        return false; // TODO: Implement
     }
 
 
