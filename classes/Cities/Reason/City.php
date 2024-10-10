@@ -38,7 +38,7 @@ class City
         }
 
         if (!$materials->count()) {
-            $materials = $this->od->getMaterials()->where("`osnove` = 1");
+            $materials = $this->od->getMaterials()->where("`osnova` = 1");
         }
 
         if (!$materials->count()) {
