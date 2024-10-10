@@ -24,13 +24,13 @@ $this->registerWidget(array(
     'ui' => 'Plugin.cities.WidgetLocation',
 ));
 
-$this->registerWidget(array(
-    'name' => 'cities.menu.user',
-    'class' => '\\Cities\\MenuUserSeo',
-    'describ' => $t->_('Пользовательское SEO меню'),
-    'icon' => 'city.png',
-    'ui' => 'Plugin.cities.Widget',
-));
+//$this->registerWidget(array(
+//    'name' => 'cities.menu.user',
+//    'class' => '\\Cities\\MenuUserSeo',
+//    'describ' => $t->_('Пользовательское SEO меню'),
+//    'icon' => 'city.png',
+//    'ui' => 'Plugin.cities.Widget',
+//));
 
 
 if ($this->getBo() && $this->getUser() && $this->getUser()->isAdmin()) {
