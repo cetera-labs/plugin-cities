@@ -4,10 +4,6 @@ namespace Cities\Traits;
 
 trait ReplaceAlias
 {
-    public function getMeta_title()
-    {
-        return self::replaceAlias($this->fields['meta_title']);
-    }
 
     public static function replaceAlias($data)
     {
@@ -49,6 +45,12 @@ trait ReplaceAlias
         return $data;
     }
 
+    public function getMeta_title()
+    {
+        return self::replaceAlias($this->fields['meta_title']);
+    }
+
+
     public function getMeta_description()
     {
         return self::replaceAlias($this->fields['meta_description']);
@@ -58,4 +60,20 @@ trait ReplaceAlias
     {
         return self::replaceAlias($this->fields['meta_keywords']);
     }
+
+    public function getName()
+    {
+        return self::replaceAlias($this->fields['name']);
+    }
+
+    public function getText()
+    {
+        return self::replaceAlias($this->fields['text']);
+    }
+
+    public function getShort()
+    {
+        return self::replaceAlias($this->fields['short']);
+    }
+
 }
