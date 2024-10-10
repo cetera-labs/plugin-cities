@@ -13,9 +13,7 @@ class City
     public $city;
     private $od;
 
-    /**
-     * @return Material
-     */
+
     public function __construct()
     {
 
@@ -27,40 +25,41 @@ class City
         $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
 
 
-        if (Utility::isMainSite()){
+        if (Utility::isMainSite()) {
             $materials = $this->od->getMaterials()->where("osnova = true");
-            if (count($materials)){
-                $this->city  = $materials[0];
+            if (count($materials)) {
+                $this->city = $materials[0];
             }
-        }
-        return
 
-
+        } else {
 
             /** @var \Cetera\Iterator\Material $materials */
             $alias = $this->cityAlias;
 
-        $materials = $this->od->getMaterials()->where("`alias` LIKE '{$alias}'");
-
-        if (!$materials->count()) {
-            /** @var \Cetera\Iterator\Material $defaultCityMaterial */
-            $alias = self::DEFAULT_CITY_ALIAS;
             $materials = $this->od->getMaterials()->where("`alias` LIKE '{$alias}'");
-        }
 
-        if (!$materials->count()) {
-            $materials = $this->od->getMaterials()->where("`osnova` = 1");
-        }
+            if (!$materials->count()) {
+                /** @var \Cetera\Iterator\Material $defaultCityMaterial */
+                $alias = self::DEFAULT_CITY_ALIAS;
+                $materials = $this->od->getMaterials()->where("`alias` LIKE '{$alias}'");
+            }
 
-        if (!$materials->count()) {
-            $materials = $this->od->getMaterials();
-        }
+            if (!$materials->count()) {
+                $materials = $this->od->getMaterials()->where("`osnova` = 1");
+            }
 
-        try {
-            $this->city = $materials[0];
-        } catch (\Exception $e) {
+            if (!$materials->count()) {
+                $materials = $this->od->getMaterials();
+            }
+
+            try {
+                $this->city = $materials[0];
+            } catch (\Exception $e) {
+            }
         }
     }
+
+
 
     /**
      * @return Material|null
