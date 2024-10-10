@@ -88,11 +88,11 @@ class City
         /**
          * @todo redirect to main; complete with current page;
          */
-        if (getenv('RUN_MODE') !== 'development') {
-            $location = 'https://'. $alias . '.' .Utility::getDomain();
-            header("Location: $location");
-            die();
-        }
+//        if (getenv('RUN_MODE') !== 'development') {
+//            $location = 'https://'. $alias . '.' .Utility::getDomain();
+//            header("Location: $location");
+//            die();
+//        }
     }
 
 }
