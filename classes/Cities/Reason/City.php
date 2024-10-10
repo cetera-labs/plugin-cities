@@ -23,7 +23,7 @@ class City
         $this->cityAlias = Utility::getDomainAlias();
         $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
 
-        if ($this->cityAlias === false){
+        if ($this->cityAlias === false) {
             $materials = $this->od->getMaterials()->where("osnova = true");
             if (count($materials)) {
                 $this->city = $materials[0];
@@ -59,7 +59,6 @@ class City
     }
 
 
-
     /**
      * @return Material|null
      */
@@ -88,11 +87,17 @@ class City
         /**
          * @todo redirect to main; complete with current page;
          */
-//        if (getenv('RUN_MODE') !== 'development') {
-//            $location = 'https://'. $alias . '.' .Utility::getDomain();
-//            header("Location: $location");
-//            die();
-//        }
+        if (getenv('RUN_MODE') !== 'development') {
+            $domain = Utility::getDomain();
+            if (str_contains($domain, 'www')) {
+                $domain = str_replace('www', $alias, $domain);
+                header("Location: https://$domain");
+                die();
+            }
+            $location = 'https://' . $alias . '.' . Utility::getDomain();
+            header("Location: $location");
+            die();
+        }
     }
 
 }
