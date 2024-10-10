@@ -85,6 +85,9 @@ class City
 
     protected static function redirect($alias)
     {
+        /**
+         * @todo redirect to main; complete with current page;
+         */
         if (getenv('RUN_MODE') !== 'development') {
             $location = 'https://'. $alias . '.' .Utility::getDomain();
             header("Location: $location");
