@@ -11,8 +11,7 @@ $res = array(
 if (isset($_REQUEST["action"]))
     $action = $_REQUEST["action"];
 
-$cityObject = new \Cities\Reason\City();
-$city = $cityObject->city;
+$city = new \Cities\Reason\City();
 $cities = new \Cities\Reason\LocationReady();
 
 try {
