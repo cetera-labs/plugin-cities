@@ -4,7 +4,7 @@ namespace Cities\Accessory;
 
 class Settings
 {
-    const  SETTINGS_TABLE = "`cities_settings`";
+    public const  SETTINGS_TABLE = "`cities_settings`";
     public $fields;
     private $connect;
     private $a;

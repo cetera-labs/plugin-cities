@@ -6,6 +6,7 @@ class WidgetCity extends \Cetera\Widget\Templateable
 {
     public static $material;
 
+// eslint-disable-next-line
     protected $_params = array(
         'template' => 'default.twig',
     );

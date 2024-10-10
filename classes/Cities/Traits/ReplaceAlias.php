@@ -4,7 +4,6 @@ namespace Cities\Traits;
 
 trait ReplaceAlias
 {
-
     public static function replaceAlias($data)
     {
         global $currentCity;
@@ -75,5 +74,4 @@ trait ReplaceAlias
     {
         return self::replaceAlias($this->fields['short']);
     }
-
 }

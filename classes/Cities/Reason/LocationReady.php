@@ -4,14 +4,15 @@ namespace Cities\Reason;
 
 class LocationReady
 {
-    const  MATERIAL_TYPE = 'cities';
+    public const  MATERIAL_TYPE = 'cities';
 
     public static $city;
 
     public static $cityInstance;
     public $arrayCities;
     public $redirect;
-    protected $_cities;
+
+    protected $cities;
 
     public function __construct($arrayCities = [])
     {
@@ -33,6 +34,7 @@ class LocationReady
 
     public function isIp()
     {
-        return array_key_exists($this->cityInstance->settings->fields['server_city_key'], $_SERVER) && isset($_SERVER[$this->cityInstance->settings->fields['server_city_key']]);
+        return array_key_exists($this->cityInstance->settings->fields['server_city_key'], $_SERVER)
+            && isset($_SERVER[$this->cityInstance->settings->fields['server_city_key']]);
     }
 }

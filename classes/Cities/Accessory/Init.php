@@ -100,7 +100,6 @@ class Init
         $twig->addGlobal('currentOblastBool', $currentOblastBool);
         $twig->addGlobal('currentOsnovaBool', $currentOsnovaBool);
         $twig->addGlobal('currentCityRP', $currentCityRP);
-
     }
 
     public static function fillMetas()
@@ -133,7 +132,7 @@ class Init
         $title = str_replace("[[адрес]]", $currentAddres, $title);
         $title = str_replace("[[city]]", $currentAddres, $title);
         $a->setPageProperty('title', $title);
-        $a->addHeadString('<meta property="og:title" content="'.$title.'">', 'og:title');
+        $a->addHeadString('<meta property="og:title" content="' . $title . '">', 'og:title');
 
         $catCpy = $c;
         while (!$a->getPageProperty('keywords') && !$catCpy->isRoot()) {
@@ -158,9 +157,9 @@ class Init
             $metaDescription = str_replace("[[адрес]]", $currentAddres, $metaDescription);
             $metaDescription = str_replace("[[city]]", $currentAddres, $metaDescription);
             $a->setPageProperty('description', $metaDescription);
-            $a->addHeadString('<meta property="og:description" content="' . htmlspecialchars($metaDescription) . '">', 'og:description');
+            $a->addHeadString('<meta property="og:description" content="' .
+                htmlspecialchars($metaDescription) . '">', 'og:description');
             $catCpy = $catCpy->getParent();
         }
-
     }
 }

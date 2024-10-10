@@ -7,8 +7,8 @@ use Cities\Accessory\Utility;
 
 class City
 {
-    const  MATERIAL_TYPE = 'cities';
-    const DEFAULT_CITY_ALIAS = 'moscow';
+    public const  MATERIAL_TYPE = 'cities';
+    public const DEFAULT_CITY_ALIAS = 'moscow';
     public $cityAlias;
     public $city;
     private $od;
@@ -35,7 +35,6 @@ class City
             /** @var \Cetera\Iterator\Material $defaultCityMaterial */
             $alias = self::DEFAULT_CITY_ALIAS;
             $materials = $this->od->getMaterials()->where("`alias` LIKE '{$alias}'");
-
         }
 
         if (!$materials->count()) {
@@ -43,16 +42,12 @@ class City
         }
 
         if (!$materials->count()) {
-
             $materials = $this->od->getMaterials();
-
-
         }
 
         try {
             $this->city = $materials[0];
         } catch (\Exception $e) {
-
         }
     }
 
