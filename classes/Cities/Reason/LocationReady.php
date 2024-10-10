@@ -12,7 +12,7 @@ class LocationReady
     public $arrayCities;
     public $redirect;
 
-    protected $cities;
+    public $cities;
 
     public function __construct($arrayCities = [])
     {
