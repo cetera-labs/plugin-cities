@@ -2,7 +2,7 @@
 
 namespace Cities\Accessory;
 
-use Pdp\Domain;
+use Cities\Reason\City;
 
 class Utility
 {
@@ -51,5 +51,46 @@ class Utility
     {
         header("HTTP/1.1 301 Moved Permanently");
         header("Location: $link");
+    }
+
+    public static function getBaseDomain()
+    {
+        $base = parse_url($_SERVER['SERVER_NAME'])['host'] ?? $_SERVER['SERVER_NAME'];
+        $pattern = '/(?:https?:\/\/)?(?:www\.)?(?:[a-z0-9-]+\.)*([a-z0-9-]+\.[a-z]{2,})/i';
+        $domainMatches = [];
+        if (preg_match_all($pattern, $base, $domainMatches) && count($domainMatches) > 1) {
+            try {
+                return array_shift($domainMatches[1]);
+            } catch (\Exception $e) {
+                return $base;
+            }
+        }
+
+        return $base;
+    }
+
+    /**
+     * @return bool|string
+     */
+    public static function getGeoAlias()
+    {
+
+        $uri = $_SERVER['DOCUMENT_URI'];
+        $splitted = array_filter(explode('/', $uri), static function ($v) {
+            return !empty($v);
+        });
+        if (!count($splitted)) {
+            return false;
+        }
+        try {
+            $potentialGeoValue = $splitted[array_key_first($splitted)];
+            /**
+             * @var $materials \Cetera\Iterator\Material
+             */
+            $materials = City::findByAlias($potentialGeoValue);
+            return $materials->count() === 1 ? $potentialGeoValue : false;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }

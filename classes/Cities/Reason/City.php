@@ -14,6 +14,24 @@ class City
     private $od;
 
 
+    private function setMaterial()
+    {
+        if (!$this->od) {
+            $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
+        }
+
+        $alias = $this->cityAlias;
+        try {
+            $sql = "`alias` = '{$alias}'";
+            $list = $this->od->getMaterials()->where($sql)->asArray();
+            $this->city = $list[array_key_first($list)];
+        } catch (\Exception $e) {
+        }
+    }
+
+    /**
+     * @todo redirect for materials needed
+     */
     public function __construct()
     {
 
@@ -21,8 +39,19 @@ class City
         $this->settings = \Cities\Accessory\Settings::getInstance();
 
         $this->cityAlias = Utility::getDomainAlias();
-        $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
 
+        try {
+            $geoAlias = Utility::getGeoAlias();
+            if ($geoAlias !== false) {
+                $this->cityAlias = $geoAlias;
+                $this->setMaterial();
+                return $this;
+            }
+        } catch (\Exception $e) {
+        }
+
+
+        $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
         if ($this->cityAlias === false) {
             $materials = $this->od->getMaterials()->where("osnova = true");
             if (count($materials)) {
@@ -31,7 +60,6 @@ class City
                 self::redirect($this->cityAlias);
             }
         } else {
-
             /** @var \Cetera\Iterator\Material $materials */
             $alias = $this->cityAlias;
 
@@ -53,9 +81,12 @@ class City
 
             try {
                 $this->city = $materials[0];
+                $this->redirect($this->city['alias']);
             } catch (\Exception $e) {
             }
         }
+
+        return $this;
     }
 
 
@@ -82,12 +113,25 @@ class City
         return $materials;
     }
 
+    public static function findByAlias($alias)
+    {
+        $_od = \Cetera\ObjectDefinition::findByAlias(self::MATERIAL_TYPE);
+
+        $sql = "`alias` = '$alias'";
+        return $_od->getMaterials()->where($sql);
+    }
+
+    /**
+     * @todo redirect with URI!!!
+     * @param $alias
+     * @return void
+     */
     protected static function redirect($alias)
     {
-        return;
-        $location = Utility::getDomain() . "/$alias/";
+        $base = Utility::getBaseDomain();
+        $location = $base . "/$alias/";
+//        die("Redirecting to $location");
         header("Location: $location");
         die();
     }
-
 }
