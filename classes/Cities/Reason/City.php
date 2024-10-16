@@ -35,7 +35,6 @@ class City
     public function __construct()
     {
 
-
         $this->settings = \Cities\Accessory\Settings::getInstance();
 
         $this->cityAlias = Utility::getDomainAlias();
@@ -57,7 +56,7 @@ class City
             if (count($materials)) {
                 $this->city = $materials[0];
                 $this->cityAlias = $this->city['alias'];
-                self::redirect($this->cityAlias);
+                //self::redirect($this->cityAlias);
             }
         } else {
             /** @var \Cetera\Iterator\Material $materials */
@@ -81,11 +80,20 @@ class City
 
             try {
                 $this->city = $materials[0];
-                $this->redirect($this->city['alias']);
+                //$this->redirect($this->city['alias']);
             } catch (\Exception $e) {
             }
         }
+        if (Utility::isMainSite()) {
+            $this->city->fields['link'] = Utility::getProtocol() . Utility::getDomain();
+        } else {
+            $this->city->fields['link'] = Utility::getProtocol() . $this->city->alias . '.' . Utility::getDomain();
+        }
 
+
+        if (getenv("RUN_MODE") === "development") {
+            $this->city->fields['link'] .= ":8080";
+        }
         return $this;
     }
 
@@ -119,19 +127,5 @@ class City
 
         $sql = "`alias` = '$alias'";
         return $_od->getMaterials()->where($sql);
-    }
-
-    /**
-     * @todo redirect with URI!!!
-     * @param $alias
-     * @return void
-     */
-    protected static function redirect($alias)
-    {
-        $base = Utility::getBaseDomain();
-        $location = $base . "/$alias/";
-//        die("Redirecting to $location");
-        header("Location: $location");
-        die();
     }
 }

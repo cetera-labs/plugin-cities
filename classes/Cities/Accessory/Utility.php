@@ -58,14 +58,25 @@ class Utility
         $base = parse_url($_SERVER['SERVER_NAME'])['host'] ?? $_SERVER['SERVER_NAME'];
         $pattern = '/(?:https?:\/\/)?(?:www\.)?(?:[a-z0-9-]+\.)*([a-z0-9-]+\.[a-z]{2,})/i';
         $domainMatches = [];
+        $isLocal = getenv("RUN_MODE") === "development";
         if (preg_match_all($pattern, $base, $domainMatches) && count($domainMatches) > 1) {
             try {
-                return array_shift($domainMatches[1]);
+                $match =  array_shift($domainMatches[1]);
+                if ($isLocal) {
+                    return $match . ":8080";
+                }
+                return $match;
             } catch (\Exception $e) {
+                if ($isLocal) {
+                    return $base . ":8080";
+                }
                 return $base;
             }
         }
 
+        if ($isLocal) {
+            return $base . ":8080";
+        }
         return $base;
     }
 
