@@ -25,6 +25,8 @@ class Init
         self::initGlobalVariables();
         self::setTwigGlobals($twig);
         self::fillMetas();
+        self::setCookie();
+        self::final();
     }
 
     /**
@@ -160,6 +162,92 @@ class Init
             $a->addHeadString('<meta property="og:description" content="' .
                 htmlspecialchars($metaDescription) . '">', 'og:description');
             $catCpy = $catCpy->getParent();
+        }
+    }
+
+    protected static function setCookie()
+    {
+       /**
+        * @todo implement here
+        */
+    }
+
+    protected static function final()
+    {
+
+        /**
+         * @TODO rewrite and reformat
+         */
+        return;
+        $conn = new mysqli(
+            $application->getVar('dbhost'),
+            $application->getVar('dbuser'),
+            $application->getVar('dbpass'),
+            $application->getVar('dbname')
+        );
+
+        $sql = "SELECT alias FROM cities";
+        $result = $conn->query($sql);
+
+        /* Формируем url */
+        $arURL = explode('/', $_SERVER['REQUEST_URI']);
+        global $canonicalURL;
+        $canonicalURL = $_SERVER['REQUEST_URI'];
+
+        $currentCityAlias = $arURL[1];
+
+        while ($row = $result->fetch_assoc()) {
+            if ($arURL[1] == $row["alias"]) {
+                $arURL[1] = '';
+            }
+        }
+
+        $fullPath = '/';
+        foreach ($arURL as $path) {
+            if ($path) {
+                $fullPath .= $path . '/';
+            }
+        }
+
+        if ($fullPath && $fullPath != '/') {
+            $_SERVER['REQUEST_URI'] = $fullPath;
+        } else {
+            $_SERVER['REQUEST_URI'] = '';
+        }
+
+        /* Формируем alias */
+        $sql = "SELECT name, alias, city_pr, addres, phone, email, osnova, oblast, city_rp FROM cities WHERE alias = '" . $currentCityAlias . "'";
+        $result = $conn->query($sql);
+        global $currentCity;
+        global $currentCityAlias;
+        global $currentCityPR;
+        global $currentPhone;
+        global $currentEmail;
+        global $currentAddres;
+        global $currentAddresNoCity;
+        global $currentOblastBool;
+        global $currentOsnovaBool;
+        global $currentCityRP;
+        while ($row = $result->fetch_assoc()) {
+            $currentCity = $row["name"];
+            $currentCityAlias = $row["alias"];
+            $currentCityPR = $row["city_pr"];
+            $currentPhone = $row["phone"];
+            $currentEmail = $row["email"];
+            $currentAddres = $row["addres"];
+            $currentAddresNoCity = str_replace($row["name"] . ", ", "", $row["addres"]);
+            $currentOblastBool = $row["osnova"];
+            $currentOsnovaBool = $row["oblast"];
+            $currentCityRP = $row["city_rp"];
+        }
+        $conn->close();
+
+        if (class_exists('CitySection\CitySection')) {
+            \Cetera\Section::extend('CitySection\CitySection');
+        }
+
+        if (class_exists('MaterialSeo\MaterialSeo')) {
+            \Cetera\Material::extend('MaterialSeo\MaterialSeo');
         }
     }
 }

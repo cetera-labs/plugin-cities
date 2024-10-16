@@ -44,7 +44,7 @@ class City
             if ($geoAlias !== false) {
                 $this->cityAlias = $geoAlias;
                 $this->setMaterial();
-                return $this;
+                $this->setRedirectFlag();
             }
         } catch (\Exception $e) {
         }
@@ -56,9 +56,12 @@ class City
             if (count($materials)) {
                 $this->city = $materials[0];
                 $this->cityAlias = $this->city['alias'];
+                $this->setRedirectFlag();
+
+                return $this;
                 //self::redirect($this->cityAlias);
             }
-        } else {
+        } elseif (!$this->city) {
             /** @var \Cetera\Iterator\Material $materials */
             $alias = $this->cityAlias;
 
@@ -89,6 +92,7 @@ class City
         } else {
             $this->city->fields['link'] = Utility::getProtocol() . $this->city->alias . '.' . Utility::getDomain();
         }
+        $this->setRedirectFlag();
 
 
         if (getenv("RUN_MODE") === "development") {
@@ -127,5 +131,25 @@ class City
 
         $sql = "`alias` = '$alias'";
         return $_od->getMaterials()->where($sql);
+    }
+
+    public function setRedirectFlag()
+    {
+        $_COOKIE['link'] = $this->cityAlias;
+    }
+    /**
+     * @todo redirect with URI!!!
+     * @param $alias
+     * @return void
+     */
+    protected static function redirect($alias)
+    {
+        return;
+        $location = Utility::getDomain() . "/$alias/";
+        $base = Utility::getBaseDomain();
+        $location = $base . "/$alias/";
+//        die("Redirecting to $location");
+        header("Location: $location");
+        die();
     }
 }
