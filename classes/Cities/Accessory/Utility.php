@@ -2,16 +2,17 @@
 
 namespace Cities\Accessory;
 
+use Cetera\Iterator\Material;
 use Cities\Reason\City;
 
 class Utility
 {
-    public static function getDomain()
+    public static function getDomain(): string
     {
-        return $_SERVER['SERVER_NAME'];
+        return RunMode::isProduction() ? $_SERVER['SERVER_NAME'] : $_SERVER['SERVER_NAME'] . ":8080";
     }
 
-    public static function getDomainAlias($domain = null)
+    public static function getDomainAlias($domain = null): string
     {
         $domain = ($domain) ? $domain : $_SERVER['SERVER_NAME'];
         $parsed = parse_url($domain);
@@ -30,7 +31,7 @@ class Utility
     }
 
 
-    public static function getProtocol()
+    public static function getProtocol(): string
     {
         if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             return $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://';
@@ -41,24 +42,24 @@ class Utility
     }
 
 
-    public static function isMainSite($domain = null)
+    public static function isMainSite($domain = null): bool
     {
         return Utility::getBaseDomain() === $_SERVER['SERVER_NAME'];
     }
 
 
-    public static function redirect($link)
+    public static function redirect($link): void
     {
         header("HTTP/1.1 301 Moved Permanently");
         header("Location: $link");
     }
 
-    public static function getBaseDomain()
+    public static function getBaseDomain(): string
     {
         $base = parse_url($_SERVER['SERVER_NAME'])['host'] ?? $_SERVER['SERVER_NAME'];
         $pattern = '/(?:https?:\/\/)?(?:www\.)?(?:[a-z0-9-]+\.)*([a-z0-9-]+\.[a-z]{2,})/i';
         $domainMatches = [];
-        $isLocal = getenv("RUN_MODE") === "development";
+        $isLocal = RunMode::isLocal();
         if (preg_match_all($pattern, $base, $domainMatches) && count($domainMatches) > 1) {
             try {
                 $match =  array_shift($domainMatches[1]);
@@ -83,21 +84,21 @@ class Utility
     /**
      * @return bool|string
      */
-    public static function getGeoAlias()
+    public static function getGeoAlias(): bool|string
     {
 
         $uri = $_SERVER['DOCUMENT_URI'];
-        $splitted = array_filter(explode('/', $uri), static function ($v) {
+        $split = array_filter(explode('/', $uri), static function ($v) {
             return !empty($v);
         });
-        if (!count($splitted)) {
+        if (!count($split)) {
             return false;
         }
         try {
-            $potentialGeoValue = $splitted[array_key_first($splitted)];
+            $potentialGeoValue = $split[array_key_first($split)];
 
             /**
-             * @var $materials \Cetera\Iterator\Material
+             * @var $materials Material
              */
             $materials = City::findByAlias($potentialGeoValue);
             return $materials->count() === 1 ? $potentialGeoValue : false;
@@ -106,12 +107,12 @@ class Utility
         }
     }
 
-    public static function isRewriteNeeded()
+    public static function isRewriteNeeded(): bool
     {
         return self::getGeoAlias() !== false;
     }
 
-    public static function getRealURI()
+    public static function getRealURI(): string
     {
         if (self::isMainSite() && !self::getDomainAlias()) {
             return $_SERVER['DOCUMENT_URI'];

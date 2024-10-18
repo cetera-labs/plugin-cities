@@ -9,18 +9,14 @@ class City
 {
     public const  MATERIAL_TYPE = 'cities';
     public const DEFAULT_CITY_ALIAS = 'moscow';
-    public $cityAlias;
-    public $city;
-    private $od;
+    public string|bool $cityAlias;
+    public ?\Cetera\Material $city;
+    private ?\Cetera\ObjectDefinition $od;
 
 
-    private function setMaterial()
+    private function setMaterial(): void
     {
-
-        if (!$this->od) {
-            $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
-        }
-
+        $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
         $alias = $this->cityAlias;
         try {
             $sql = "`alias` = '{$alias}'";
@@ -35,9 +31,6 @@ class City
      */
     public function __construct()
     {
-
-        // die("cityConstruct");
-
         /** @var \Cities\Accessory\Settings */
         $this->settings = \Cities\Accessory\Settings::getInstance();
         $this->cityAlias = Utility::getDomainAlias();
@@ -63,9 +56,6 @@ class City
 
         $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
         if ($this->cityAlias === false) {
-//            var_dump($this->cityAlias)   ;
-//
-            //die("City1");
             /**
              * @todo grab default city by $this->settings instead this code
              */
@@ -79,7 +69,6 @@ class City
                 //self::redirect($this->cityAlias);
             }
         } elseif (!$this->city) {
-            // die("City2");
             /** @var \Cetera\Iterator\Material $materials */
             $alias = $this->cityAlias;
 
@@ -129,28 +118,28 @@ class City
     /**
      * @return Material|null
      */
-    public function getCityMaterial()
+    public function getCityMaterial(): ?Material
     {
         return $this->city;
     }
 
-    public function getCities($citiesList = [])
+    public function getCities($citiesList = []): \Cetera\Iterator\Material
     {
 
         $cities = $this->od->getMaterials();
         return $this->setLinks($cities);
     }
 
-    public function setLinks($materials)
+    public function setLinks($materials): \Cetera\Iterator\Material
     {
         foreach ($materials as $key => $value) {
-            $link =  'https://' . Utility::getDomain() . '/' . $materials[$key]->alias . '/';
+            $link =  Utility::getProtocol() . Utility::getDomain() . '/' . $materials[$key]->alias . '/';
             $value->fields['link'] = str_replace('www.', '', $link);
         }
         return $materials;
     }
 
-    public static function findByAlias($alias)
+    public static function findByAlias($alias): ?\Cetera\Iterator\DynamicObject
     {
         $_od = \Cetera\ObjectDefinition::findByAlias(self::MATERIAL_TYPE);
 
@@ -167,7 +156,7 @@ class City
      * @param $alias
      * @return void
      */
-    protected static function redirect($alias)
+    protected static function redirect($alias): void
     {
         $realUri = Utility::getRealURI();
         $location    = Utility::getProtocol() . Utility::getBaseDomain() . "/" . $alias . "/";

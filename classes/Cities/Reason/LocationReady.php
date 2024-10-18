@@ -35,7 +35,7 @@ class LocationReady
      * @todo probably known
      * @return void
      */
-    public function startRedirect()
+    public function startRedirect(): void
     {
         if (
             isset($_COOKIE['link']) && $this->redirect
@@ -74,7 +74,7 @@ class LocationReady
      * @return bool
      */
 
-    public function isIp()
+    public function isIp(): bool
     {
         return array_key_exists($this->cityInstance->settings->fields['server_city_key'], $_SERVER)
             && isset($_SERVER[$this->cityInstance->settings->fields['server_city_key']]);
