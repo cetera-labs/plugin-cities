@@ -7,11 +7,21 @@ use Cities\Reason\City;
 
 class Utility
 {
+    /**
+     * Возвращает текущий домен
+     * @example test.cetera.ru
+     * @return string
+     */
     public static function getDomain(): string
     {
         return RunMode::isProduction() ? $_SERVER['SERVER_NAME'] : $_SERVER['SERVER_NAME'] . ":8080";
     }
 
+    /**
+     * @todo idk what is
+     * @param $domain
+     * @return string
+     */
     public static function getDomainAlias($domain = null): string
     {
         $domain = ($domain) ? $domain : $_SERVER['SERVER_NAME'];
@@ -30,7 +40,11 @@ class Utility
         return false; // TODO: Implement
     }
 
-
+    /**
+     * Возвращает протокол
+     * @example https://
+     * @return string
+     */
     public static function getProtocol(): string
     {
         if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
@@ -41,8 +55,11 @@ class Utility
         return ($isHttps ? 'https' : 'http') . '://';
     }
 
-
-    public static function isMainSite($domain = null): bool
+    /**
+     * Флаг основного сайта по текущему адресу
+     * @return bool
+     */
+    public static function isMainSite(): bool
     {
         return Utility::getBaseDomain() === $_SERVER['SERVER_NAME'];
     }
@@ -54,6 +71,11 @@ class Utility
         header("Location: $link");
     }
 
+    /**
+     * Возращает базовый домен
+     * @example http://cats.yaroslavl.ru/ -> yaroslavl.ru
+     * @return string
+     */
     public static function getBaseDomain(): string
     {
         $base = parse_url($_SERVER['SERVER_NAME'])['host'] ?? $_SERVER['SERVER_NAME'];
@@ -82,6 +104,8 @@ class Utility
     }
 
     /**
+     * Возвращает алиас города из URI
+     * @example /yaroslavl/info/ -> yaroslavl
      * @return bool|string
      */
     public static function getGeoAlias(): bool|string
@@ -107,11 +131,20 @@ class Utility
         }
     }
 
+    /**
+     * @todo idk what is
+     * @return bool
+     */
     public static function isRewriteNeeded(): bool
     {
         return self::getGeoAlias() !== false;
     }
 
+    /**
+     * Возвраает URI без геоалиса
+     * @see Utility::getGeoAlias()
+     * @return string
+     */
     public static function getRealURI(): string
     {
         if (self::isMainSite() && !self::getDomainAlias()) {
