@@ -24,7 +24,10 @@ class Init
 
         self::initGlobalVariables();
         self::setTwigGlobals($twig);
-        self::fillMetas();
+        try {
+            self::fillMetas();
+        } catch (\Exception $e) {
+        }
         self::extend();
         self::setCookie();
         self::rewrite();
