@@ -14,17 +14,7 @@ class City
     private ?\Cetera\ObjectDefinition $od;
 
 
-    private function setMaterial(): void
-    {
-        $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
-        $alias = $this->cityAlias;
-        try {
-            $sql = "`alias` = '{$alias}'";
-            $list = $this->od->getMaterials()->where($sql);
-            $this->city = $list[0];
-        } catch (\Exception $e) {
-        }
-    }
+
 
     /**
      * @todo redirect for materials needed
@@ -34,6 +24,7 @@ class City
         /** @var \Cities\Accessory\Settings */
         $this->settings = \Cities\Accessory\Settings::getInstance();
         $this->cityAlias = Utility::getDomainAlias();
+        $this->city = null;
 
         try {
             /** @todo what this shit?*/
@@ -112,6 +103,18 @@ class City
 
 
         return $this;
+    }
+
+    private function setMaterial(): void
+    {
+        $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
+        $alias = $this->cityAlias;
+        try {
+            $sql = "`alias` = '{$alias}'";
+            $list = $this->od->getMaterials()->where($sql);
+            $this->city = $list[0];
+        } catch (\Exception $e) {
+        }
     }
 
 

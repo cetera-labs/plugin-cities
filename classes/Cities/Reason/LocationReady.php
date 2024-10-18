@@ -11,11 +11,10 @@ class LocationReady
 
     public static $city;
 
-    public static $cityInstance;
+    public static City $cityInstance;
     public $arrayCities;
     public $redirect;
-
-    public $cities;
+    public \Cetera\Iterator\Material $cities;
 
     public function __construct($arrayCities = [])
     {

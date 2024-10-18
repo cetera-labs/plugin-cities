@@ -2,9 +2,7 @@
 
 namespace Cities\Accessory;
 
-/**
- *
- */
+use Twig_Environment;
 
 /**
  * @todo add cache for this
@@ -13,10 +11,10 @@ namespace Cities\Accessory;
 class Init
 {
     /**
-     * @param \Twig_Environment $twig
+     * @param Twig_Environment $twig
      * @return void
      */
-    public static function init(\Twig_Environment $twig)
+    public static function init(Twig_Environment $twig): void
     {
         /**
          * @todo add cache for this
@@ -34,7 +32,7 @@ class Init
     /**
      *
      */
-    protected static function initGlobalVariables()
+    protected static function initGlobalVariables(): void
     {
         global $currentCity;
         global $currentCityAlias;
@@ -77,10 +75,10 @@ class Init
     }
 
     /**
-     * @param \Twig_Environment $twig
+     * @param Twig_Environment $twig
      * @return void
      */
-    public static function setTwigGlobals(\Twig_Environment $twig)
+    public static function setTwigGlobals(Twig_Environment $twig): void
     {
         global $currentCity;
         global $currentCityAlias;
@@ -106,7 +104,7 @@ class Init
         $twig->addGlobal('currentCityRP', $currentCityRP);
     }
 
-    public static function fillMetas()
+    public static function fillMetas(): void
     {
         global $currentCity;
 //        global $currentCityAlias;
@@ -168,14 +166,14 @@ class Init
         }
     }
 
-    protected static function setCookie()
+    protected static function setCookie(): void
     {
         /**
          * @todo implement here
          */
     }
 
-    protected static function extend()
+    protected static function extend(): void
     {
         if (class_exists('CitySection\CitySection')) {
             \Cetera\Section::extend('CitySection\CitySection');
@@ -186,9 +184,9 @@ class Init
         }
     }
 
-    /** todo disable if admin page*/
+    /** @todo disable if admin page*/
 
-    protected static function rewrite()
+    protected static function rewrite(): void
     {
         if (Utility::isRewriteNeeded()) {
             $a = \Cetera\Application::getInstance();
