@@ -18,7 +18,8 @@ class Utility
     }
 
     /**
-     * @todo idk what is
+     * @todo probably duplicate
+     * @see Utility::getGeoAlias()
      * @param $domain
      * @return string
      */

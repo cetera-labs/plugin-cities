@@ -11,6 +11,7 @@ use Twig_Environment;
 class Init
 {
     /**
+     * Запускаем плагин
      * @param Twig_Environment $twig
      * @return void
      */
@@ -30,7 +31,8 @@ class Init
     }
 
     /**
-     *
+     * инициализируем глобальные переменные
+     * @return void
      */
     protected static function initGlobalVariables(): void
     {
@@ -75,6 +77,7 @@ class Init
     }
 
     /**
+     * Заполняем глобальные переменные в шаблон
      * @param Twig_Environment $twig
      * @return void
      */
@@ -104,6 +107,11 @@ class Init
         $twig->addGlobal('currentCityRP', $currentCityRP);
     }
 
+    /**
+     * Заполняем мета-теги
+     * @return void
+     * @throws \Cetera\Exception\CMS
+     */
     public static function fillMetas(): void
     {
         global $currentCity;
@@ -173,6 +181,10 @@ class Init
          */
     }
 
+    /**
+     * Расшабливаем плагин
+     * @return void
+     */
     protected static function extend(): void
     {
         if (class_exists('CitySection\CitySection')) {
@@ -184,7 +196,10 @@ class Init
         }
     }
 
-    /** @todo disable if admin page*/
+    /**
+     * Переписываем роутинг, минуя геоалиас
+     * @todo disable if admin page
+     */
 
     protected static function rewrite(): void
     {
