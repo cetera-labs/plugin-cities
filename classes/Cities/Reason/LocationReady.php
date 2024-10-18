@@ -38,8 +38,8 @@ class LocationReady
     public function startRedirect()
     {
         if (
-            isset($_COOKIE['link']) && $this->redirect &&
-            Utility::isMainSite() && $_COOKIE['link'] != $this->city->link
+            isset($_COOKIE['link']) && $this->redirect
+            && Utility::isMainSite() && $_COOKIE['link'] != $this->city->link
         ) {
             $link = $_COOKIE['link'];
 
@@ -50,8 +50,8 @@ class LocationReady
             if (!isset($_COOKIE['link'])) {
                 foreach ($this->cityInstance->getCities() as $key => $value) {
                     if (
-                        $this->cityInstance->getCities()[$key]->name
-                        == $_SERVER[$this->cityInstance->settings->fields['server_city_key']]
+                        $this->cityInstance->getCities()[$key]->name ==
+                        $_SERVER[$this->cityInstance->settings->fields['server_city_key']]
                     ) {
                         $currentCity = $this->cityInstance->getCities()[$key];
                     }

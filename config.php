@@ -47,6 +47,14 @@ if ($this->getBo() && $this->getUser() && $this->getUser()->isAdmin()) {
 try {
     \Cities\Accessory\Init::init($twig);
 } catch (Exception $e) {
+
+    if (getenv('RUN_MODE')=== "development"){
+        echo '<pre>';
+        echo 'Init fail<br>';
+        var_dump($e);
+        echo '<pre>';
+    }
+
 }
 
 
@@ -87,3 +95,5 @@ if (!empty($material->settings->fields['sitemap_file']) && $material->settings->
 
     });
 }
+
+

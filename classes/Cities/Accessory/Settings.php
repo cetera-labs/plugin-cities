@@ -38,7 +38,7 @@ class Settings
 
         /** @var \Doctrine\DBAL\ForwardCompatibility\Result $r */
         if ($r && $r->rowCount()) {
-            return $r->fetch();
+            return $r->fetchAllAssociative();
         }
 
 

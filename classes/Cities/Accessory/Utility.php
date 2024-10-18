@@ -43,7 +43,7 @@ class Utility
 
     public static function isMainSite($domain = null)
     {
-        return Utility::getDomain() == $_SERVER['SERVER_NAME'];
+        return Utility::getBaseDomain() === $_SERVER['SERVER_NAME'];
     }
 
 
@@ -95,6 +95,7 @@ class Utility
         }
         try {
             $potentialGeoValue = $splitted[array_key_first($splitted)];
+
             /**
              * @var $materials \Cetera\Iterator\Material
              */
@@ -103,5 +104,19 @@ class Utility
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    public static function isRewriteNeeded()
+    {
+        return self::getGeoAlias() !== false;
+    }
+
+    public static function getRealURI()
+    {
+        if (self::isMainSite() && !self::getDomainAlias()) {
+            return $_SERVER['DOCUMENT_URI'];
+        }
+
+        return str_replace("/" . self::getGeoAlias(), "", $_SERVER['DOCUMENT_URI']);
     }
 }

@@ -16,6 +16,7 @@ class City
 
     private function setMaterial()
     {
+
         if (!$this->od) {
             $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
         }
@@ -23,8 +24,8 @@ class City
         $alias = $this->cityAlias;
         try {
             $sql = "`alias` = '{$alias}'";
-            $list = $this->od->getMaterials()->where($sql)->asArray();
-            $this->city = $list[array_key_first($list)];
+            $list = $this->od->getMaterials()->where($sql);
+            $this->city = $list[0];
         } catch (\Exception $e) {
         }
     }
@@ -35,23 +36,39 @@ class City
     public function __construct()
     {
 
-        $this->settings = \Cities\Accessory\Settings::getInstance();
+       // die("cityConstruct");
 
+        /** @var \Cities\Accessory\Settings */
+        $this->settings = \Cities\Accessory\Settings::getInstance();
         $this->cityAlias = Utility::getDomainAlias();
 
         try {
+            /** @todo what this shit?*/
             $geoAlias = Utility::getGeoAlias();
+
+
             if ($geoAlias !== false) {
                 $this->cityAlias = $geoAlias;
                 $this->setMaterial();
                 $this->setRedirectFlag();
+
+               // $this->redirect($this->cityAlias);
+                return $this;
             }
         } catch (\Exception $e) {
         }
 
 
+
+
         $this->od = new \Cetera\ObjectDefinition(self::MATERIAL_TYPE);
         if ($this->cityAlias === false) {
+//            var_dump($this->cityAlias)   ;
+//
+            //die("City1");
+            /**
+             * @todo grab default city by $this->settings instead this code
+             */
             $materials = $this->od->getMaterials()->where("osnova = true");
             if (count($materials)) {
                 $this->city = $materials[0];
@@ -62,10 +79,14 @@ class City
                 //self::redirect($this->cityAlias);
             }
         } elseif (!$this->city) {
+           // die("City2");
             /** @var \Cetera\Iterator\Material $materials */
             $alias = $this->cityAlias;
 
             $materials = $this->od->getMaterials()->where("`alias` LIKE '{$alias}'");
+
+
+
 
             if (!$materials->count()) {
                 /** @var \Cetera\Iterator\Material $defaultCityMaterial */
@@ -83,21 +104,24 @@ class City
 
             try {
                 $this->city = $materials[0];
-                //$this->redirect($this->city['alias']);
             } catch (\Exception $e) {
             }
         }
+
+        /*@todo wrong link */
+
+        global $geoURL;
+
+
         if (Utility::isMainSite()) {
-            $this->city->fields['link'] = Utility::getProtocol() . Utility::getDomain();
-        } else {
-            $this->city->fields['link'] = Utility::getProtocol() . $this->city->alias . '.' . Utility::getDomain();
+            $geoURL = Utility::getProtocol() . Utility::getBaseDomain();
+        } elseif (Utility::getDomainAlias()) {
+                /* this not main domain and have geo subdomain*/
+            self::redirect($this->cityAlias);
+            $geoURL = Utility::getProtocol() . Utility::getBaseDomain() . "/" . $this->cityAlias . "/";
         }
-        $this->setRedirectFlag();
 
 
-        if (getenv("RUN_MODE") === "development") {
-            $this->city->fields['link'] .= ":8080";
-        }
         return $this;
     }
 
@@ -135,7 +159,7 @@ class City
 
     public function setRedirectFlag()
     {
-        $_COOKIE['link'] = $this->cityAlias;
+        //$_COOKIE['link'] = $this->cityAlias;
     }
     /**
      * @todo redirect with URI!!!
@@ -144,11 +168,11 @@ class City
      */
     protected static function redirect($alias)
     {
-        return;
-        $location = Utility::getDomain() . "/$alias/";
-        $base = Utility::getBaseDomain();
-        $location = $base . "/$alias/";
-//        die("Redirecting to $location");
+        $realUri = Utility::getRealURI();
+        $location    = Utility::getProtocol() . Utility::getBaseDomain() . "/" . $alias . "/";
+        if (strlen($realUri) > 2) {
+            $location .= $realUri . '/';
+        }
         header("Location: $location");
         die();
     }
