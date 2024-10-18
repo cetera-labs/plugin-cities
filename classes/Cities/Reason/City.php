@@ -36,7 +36,7 @@ class City
     public function __construct()
     {
 
-       // die("cityConstruct");
+        // die("cityConstruct");
 
         /** @var \Cities\Accessory\Settings */
         $this->settings = \Cities\Accessory\Settings::getInstance();
@@ -52,7 +52,7 @@ class City
                 $this->setMaterial();
                 $this->setRedirectFlag();
 
-               // $this->redirect($this->cityAlias);
+                // $this->redirect($this->cityAlias);
                 return $this;
             }
         } catch (\Exception $e) {
@@ -79,7 +79,7 @@ class City
                 //self::redirect($this->cityAlias);
             }
         } elseif (!$this->city) {
-           // die("City2");
+            // die("City2");
             /** @var \Cetera\Iterator\Material $materials */
             $alias = $this->cityAlias;
 
@@ -116,7 +116,7 @@ class City
         if (Utility::isMainSite()) {
             $geoURL = Utility::getProtocol() . Utility::getBaseDomain();
         } elseif (Utility::getDomainAlias()) {
-                /* this not main domain and have geo subdomain*/
+            /* this not main domain and have geo subdomain*/
             self::redirect($this->cityAlias);
             $geoURL = Utility::getProtocol() . Utility::getBaseDomain() . "/" . $this->cityAlias . "/";
         }
@@ -144,7 +144,8 @@ class City
     public function setLinks($materials)
     {
         foreach ($materials as $key => $value) {
-            $value->fields['link'] = 'https://' . Utility::getDomain() . '/' . $materials[$key]->alias . '/';
+            $link =  'https://' . Utility::getDomain() . '/' . $materials[$key]->alias . '/';
+            $value->fields['link'] = str_replace('www.', '', $link);
         }
         return $materials;
     }
