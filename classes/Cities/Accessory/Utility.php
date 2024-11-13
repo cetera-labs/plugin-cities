@@ -151,6 +151,9 @@ class Utility
 //        if (self::isMainSite() && !self::getDomainAlias()) {
 //            return $_SERVER['DOCUMENT_URI'];
 //        }
+        /**
+         * @todo probably bag with /false searching in substring
+         */
 
         return str_replace("/" . self::getGeoAlias(), "", $_SERVER['DOCUMENT_URI']);
     }
