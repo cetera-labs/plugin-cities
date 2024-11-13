@@ -148,9 +148,9 @@ class Utility
      */
     public static function getRealURI(): string
     {
-        if (self::isMainSite() && !self::getDomainAlias()) {
-            return $_SERVER['DOCUMENT_URI'];
-        }
+//        if (self::isMainSite() && !self::getDomainAlias()) {
+//            return $_SERVER['DOCUMENT_URI'];
+//        }
 
         return str_replace("/" . self::getGeoAlias(), "", $_SERVER['DOCUMENT_URI']);
     }
