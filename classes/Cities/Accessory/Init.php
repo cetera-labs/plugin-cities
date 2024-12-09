@@ -209,6 +209,11 @@ class Init
         if (Utility::isRewriteNeeded()) {
             $a = \Cetera\Application::getInstance();
             $a->setRequestUri(Utility::getRealURI());
+
+            $uri = implode('/', [Utility::getGeoAlias(), Utility::getRealURI()]);
+            $canonical = "{$_SERVER['HTTP_HOST']}/{$uri}";
+            $canonical = str_replace("//", "/",$canonical);
+            $a->addHeadString('<link rel="canonical" href="https://' . $canonical . '">', 'canonical');
         }
     }
 }
