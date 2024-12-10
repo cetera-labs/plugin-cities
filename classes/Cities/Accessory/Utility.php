@@ -62,6 +62,9 @@ class Utility
      */
     public static function isMainSite(): bool
     {
+        if (RunMode::isLocal()){
+            return Utility::getBaseDomain() === $_SERVER['SERVER_NAME'] . ":8080";
+        }
         return Utility::getBaseDomain() === $_SERVER['SERVER_NAME'];
     }
 

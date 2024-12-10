@@ -92,8 +92,17 @@ class City
 
         global $geoURL;
 
-
         if (Utility::isMainSite()) {
+            /**
+             * Нет алиаса ни в домене, не в урл
+             */
+            if (!Utility::getDomainAlias() && !Utility::getGeoAlias() && count($materials)){
+                /**
+                 * @var Cetera\Material $candidate
+                 */
+                $candidate = $materials[0];
+                self::redirect($candidate->alias);
+            }
             $geoURL = Utility::getProtocol() . Utility::getBaseDomain();
         } elseif (Utility::getDomainAlias()) {
             /* this not main domain and have geo subdomain*/
