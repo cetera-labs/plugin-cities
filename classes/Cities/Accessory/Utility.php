@@ -9,8 +9,8 @@ class Utility
 {
     /**
      * Возвращает текущий домен
-     * @example test.cetera.ru
      * @return string
+     * @example test.cetera.ru
      */
     public static function getDomain(): string
     {
@@ -18,10 +18,10 @@ class Utility
     }
 
     /**
-     * @todo probably duplicate
-     * @see Utility::getGeoAlias()
      * @param $domain
      * @return string
+     * @todo probably duplicate
+     * @see Utility::getGeoAlias()
      */
     public static function getDomainAlias($domain = null): string
     {
@@ -62,10 +62,10 @@ class Utility
      */
     public static function isMainSite(): bool
     {
-        if (RunMode::isLocal()){
+        if (RunMode::isLocal()) {
             return Utility::getBaseDomain() === $_SERVER['SERVER_NAME'] . ":8080";
         }
-        return Utility::getBaseDomain() === $_SERVER['SERVER_NAME'];
+        return Utility::getBaseDomain() === str_replace('www.', '', $_SERVER['SERVER_NAME']);
     }
 
 
@@ -88,7 +88,7 @@ class Utility
         $isLocal = RunMode::isLocal();
         if (preg_match_all($pattern, $base, $domainMatches) && count($domainMatches) > 1) {
             try {
-                $match =  array_shift($domainMatches[1]);
+                $match = array_shift($domainMatches[1]);
                 if ($isLocal) {
                     return $match . ":8080";
                 }
@@ -109,8 +109,8 @@ class Utility
 
     /**
      * Возвращает алиас города из URI
-     * @example /yaroslavl/info/ -> yaroslavl
      * @return bool|string
+     * @example /yaroslavl/info/ -> yaroslavl
      */
     public static function getGeoAlias(): bool|string
     {
@@ -136,8 +136,8 @@ class Utility
     }
 
     /**
-     * @todo idk what is
      * @return bool
+     * @todo idk what is
      */
     public static function isRewriteNeeded(): bool
     {
@@ -146,8 +146,8 @@ class Utility
 
     /**
      * Возвраает URI без геоалиса
-     * @see Utility::getGeoAlias()
      * @return string
+     * @see Utility::getGeoAlias()
      */
     public static function getRealURI(): string
     {
