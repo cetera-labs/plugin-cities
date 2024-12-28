@@ -170,12 +170,17 @@ class City
      */
     protected static function redirect($alias): void
     {
-        $realUri = Utility::getRealURI();
-        $location    = Utility::getProtocol() . Utility::getBaseDomain() . "/" . $alias . "/";
-        if (strlen($realUri) > 2) {
-            $location .= $realUri . '/';
+        /**
+         * @todo fix for another contains with *cms*
+         */
+        if (!str_contains(Utility::getRealURI(), 'cms')){
+            $realUri = Utility::getRealURI();
+            $location    = Utility::getProtocol() . Utility::getBaseDomain() . "/" . $alias . "/";
+            if (strlen($realUri) > 2) {
+                $location .= $realUri . '/';
+            }
+            header("Location: $location");
+            die();
         }
-        header("Location: $location");
-        die();
     }
 }
