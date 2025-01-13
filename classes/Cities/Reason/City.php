@@ -170,11 +170,13 @@ class City
      */
     protected static function redirect($alias): void
     {
+        $a = \Cetera\Application::getInstance();
+
         /**
          * @todo fix for another contains with *cms*
          */
         $realUri = Utility::getRealURI();
-        if (!str_contains($realUri, 'cms') || !is_file($realUri)){
+        if ($a->isFrontOffice() && (!str_contains($realUri, 'cms') || !is_file($realUri))){
 
             $location    = Utility::getProtocol() . Utility::getBaseDomain() . "/" . $alias . "/";
             if (strlen($realUri) > 2) {
