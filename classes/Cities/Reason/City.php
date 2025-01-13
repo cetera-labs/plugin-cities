@@ -173,8 +173,9 @@ class City
         /**
          * @todo fix for another contains with *cms*
          */
-        if (!str_contains(Utility::getRealURI(), 'cms')){
-            $realUri = Utility::getRealURI();
+        $realUri = Utility::getRealURI();
+        if (!str_contains($realUri, 'cms') || !is_file($realUri)){
+
             $location    = Utility::getProtocol() . Utility::getBaseDomain() . "/" . $alias . "/";
             if (strlen($realUri) > 2) {
                 $location .= $realUri . '/';
