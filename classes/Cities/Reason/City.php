@@ -138,7 +138,7 @@ class City
     public function getCities($citiesList = []): \Cetera\Iterator\Material
     {
 
-        $cities = $this->od->getMaterials();
+        $cities = $this->od->getMaterials()->orderBy('name');
         return $this->setLinks($cities);
     }
 
