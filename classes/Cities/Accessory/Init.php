@@ -81,10 +81,10 @@ class Init
 
     /**
      * Заполняем глобальные переменные в шаблон
-     * @param Twig_Environment $twig
+     * @param Environment $twig
      * @return void
      */
-    public static function setTwigGlobals(Twig_Environment $twig): void
+    public static function setTwigGlobals(Environment $twig): void
     {
         global $currentCity;
         global $currentCityAlias;
