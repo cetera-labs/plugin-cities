@@ -2,7 +2,7 @@
 
 namespace Cities\Accessory;
 
-use Twig_Environment;
+use Twig\Environment;
 
 /**
  * @todo add cache for this
@@ -12,10 +12,10 @@ class Init
 {
     /**
      * Запускаем плагин
-     * @param Twig_Environment $twig
+     * @param Environment $twig
      * @return void
      */
-    public static function init(Twig_Environment $twig): void
+    public static function init(Environment $twig): void
     {
         /**
          * @todo add cache for this
