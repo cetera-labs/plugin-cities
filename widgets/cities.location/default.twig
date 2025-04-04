@@ -6,15 +6,19 @@
         <p>Выбор города</p>
         <div class="city-osnova">
             <ul>
-                {% for m in widget.location.cities if m.osnova %}
-                    <li><a data-id="{{ m.id }}" href="{{ m.link }}"> {{ m.name }} </a></li>
+                {% for m in widget.location.cities %}
+                    {% if m.osnova %}
+                        <li><a data-id="{{ m.id }}" href="{{ m.link }}"> {{ m.name }} </a></li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>
         <div class="city-oblast">
             <ul>
-                {% for m in widget.location.cities if m.oblast %}
-                    <li><a data-id="{{ m.id }}" href="{{ m.link }}"> {{ m.name }} </a></li>
+                {% for m in widget.location.cities %}
+                    {% if m.oblast %}
+                        <li><a data-id="{{ m.id }}" href="{{ m.link }}"> {{ m.name }} </a></li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>
