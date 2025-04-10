@@ -6,6 +6,11 @@ trait ReplaceAlias
 {
     public static function replaceAlias($data)
     {
+
+        $application = \Cetera\Application::getInstance();
+        if (!$application->isFrontOffice()) {
+            return $data;
+        }
         global $currentCity;
         global $currentCityAlias;
         global $currentCityPR;
