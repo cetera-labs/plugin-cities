@@ -51,32 +51,32 @@ trait ReplaceAlias
 
     public function getMeta_title()
     {
-        return self::replaceAlias($this->fields['meta_title']);
+        return self::replaceAlias($this->fields['meta_title'] ?? "");
     }
 
 
     public function getMeta_description()
     {
-        return self::replaceAlias($this->fields['meta_description']);
+        return self::replaceAlias($this->fields['meta_description'] ?? "");
     }
 
     public function getMeta_keywords()
     {
-        return self::replaceAlias($this->fields['meta_keywords']);
+        return self::replaceAlias($this->fields['meta_keywords'] ?? "");
     }
 
     public function getName()
     {
-        return self::replaceAlias($this->fields['name']);
+        return self::replaceAlias($this->fields['name'] ?? "");
     }
 
     public function getText()
     {
-        return self::replaceAlias($this->fields['text']);
+        return self::replaceAlias($this->fields['text'] ?? "");
     }
 
     public function getShort()
     {
-        return self::replaceAlias($this->fields['short']);
+        return self::replaceAlias($this->fields['short'] ?? "");
     }
 }
