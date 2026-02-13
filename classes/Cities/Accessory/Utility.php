@@ -115,7 +115,14 @@ class Utility
     public static function getGeoAlias(): bool|string
     {
 
-        $uri = $_SERVER['DOCUMENT_URI'];
+
+		if (isset($_SERVER['DOCUMENT_URI']) {
+			$uri = $_SERVER['DOCUMENT_URI'];
+		} else {
+			$parts = parse_url($_SERVER['REQUEST_URI']);
+			$uri = $parts['path'];
+		}
+
         $split = array_filter(explode('/', $uri), static function ($v) {
             return !empty($v);
         });
@@ -158,6 +165,10 @@ class Utility
          * @todo probably bag with /false searching in substring
          */
 
-        return str_replace("/" . self::getGeoAlias(), "", $_SERVER['DOCUMENT_URI']);
+		if (isset($_SERVER['DOCUMENT_URI']) {
+			return str_replace("/" . self::getGeoAlias(), "", $_SERVER['DOCUMENT_URI']);
+		} else {
+			return str_replace("/" . self::getGeoAlias(), "", $_SERVER['REQUEST_URI']);
+		};
     }
 }
