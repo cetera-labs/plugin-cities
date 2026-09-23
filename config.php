@@ -1,9 +1,10 @@
 <?php
 
-
 $application = \Cetera\Application::getInstance();
 
 $t = $this->getTranslator();
+
+$twig = $application->getTwig();
 
 $t->addTranslation(__DIR__ . '/lang');
 
@@ -23,6 +24,15 @@ $this->registerWidget(array(
     'ui' => 'Plugin.cities.WidgetLocation',
 ));
 
+//$this->registerWidget(array(
+//    'name' => 'cities.menu.user',
+//    'class' => '\\Cities\\MenuUserSeo',
+//    'describ' => $t->_('Пользовательское SEO меню'),
+//    'icon' => 'city.png',
+//    'ui' => 'Plugin.cities.Widget',
+//));
+
+
 if ($this->getBo() && $this->getUser() && $this->getUser()->isAdmin()) {
     $this->getBo()->addModule(array(
         'id' => 'cities',
@@ -33,7 +43,23 @@ if ($this->getBo() && $this->getUser() && $this->getUser()->isAdmin()) {
     ));
 }
 
-$material = new \Cities\Reason\City();
+
+try {
+    \Cities\Accessory\Init::init($twig);
+} catch (Exception $e) {
+
+    if (getenv('RUN_MODE')=== "development"){
+        echo '<pre>';
+        echo 'Init fail<br>';
+        var_dump($e);
+        echo '<pre>';
+    }
+
+}
+
+
+$cityObject = new \Cities\Reason\City();
+$material = $cityObject->getCityMaterial();
 
 if (!empty($material->settings->fields['robots_file'])) {
 
@@ -69,3 +95,5 @@ if (!empty($material->settings->fields['sitemap_file']) && $material->settings->
 
     });
 }
+
+

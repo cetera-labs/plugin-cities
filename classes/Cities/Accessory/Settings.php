@@ -2,27 +2,13 @@
 
 namespace Cities\Accessory;
 
-Class Settings
+class Settings
 {
-
-
-    private $connect;
-
-    private $a;
-
+    public const  SETTINGS_TABLE = "`cities_settings`";
     public $fields;
-
+    private $connect;
+    private $a;
     private $querybuilder;
-
-    const  SETTINGS_TABLE = "`cities_settings`";
-
-
-    public static function getInstance()
-    {
-        static $instance;
-
-        return !is_null($instance) ? $instance : $instance = new Settings();
-    }
 
     private function __construct()
     {
@@ -33,14 +19,11 @@ Class Settings
         $this->fields = $this->getFields();
     }
 
-    public function setFields($field, $value)
+    public static function getInstance()
     {
+        static $instance;
 
-        $r = $this->querybuilder
-            ->update(self::SETTINGS_TABLE)
-            ->set($field, $this->querybuilder->expr()->literal($value))
-            ->where('id', 1)
-            ->execute();
+        return !is_null($instance) ? $instance : $instance = new Settings();
     }
 
     public function getFields()
@@ -52,7 +35,24 @@ Class Settings
             ->where('id', 1)
             ->execute();
 
-        return $r->fetch();
+
+        /** @var \Doctrine\DBAL\ForwardCompatibility\Result $r */
+        if ($r && $r->rowCount()) {
+            return $r->fetchAllAssociative();
+        }
+
+
+        return [""];
+    }
+
+    public function setFields($field, $value)
+    {
+
+        $r = $this->querybuilder
+            ->update(self::SETTINGS_TABLE)
+            ->set($field, $this->querybuilder->expr()->literal($value))
+            ->where('id', 1)
+            ->execute();
     }
 
     public function getFieldByName($name)
@@ -74,5 +74,4 @@ Class Settings
 
         return $r;
     }
-
 }

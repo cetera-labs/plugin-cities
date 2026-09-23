@@ -1,34 +1,26 @@
 <?php
 
+//hot reload
 namespace Cities\Reason;
 
-use \Cities\Accessory\Utility;
+use Cities\Accessory\Utility;
 
-Class LocationReady
+class LocationReady
 {
-
-    const  MATERIAL_TYPE = 'cities';
+    public const  MATERIAL_TYPE = 'cities';
 
     public static $city;
 
-    public static $cityInstance;
-
-    protected $_cities;
-
+    public static City $cityInstance;
     public $arrayCities;
-
     public $redirect;
-
+    public \Cetera\Iterator\Material $cities;
 
     public function __construct($arrayCities = [])
     {
 
         $this->cityInstance = new  \Cities\Reason\City();
-
-
         $this->city = $this->cityInstance->city;
-
-
         if (is_string($arrayCities)) {
             $arrayCitiesAlso = explode(',', $arrayCities);
         } else {
@@ -36,26 +28,30 @@ Class LocationReady
         }
 
         $this->cities = $this->cityInstance->getCities($arrayCitiesAlso);
-
     }
 
-    public function startRedirect()
+    /**
+     * @todo probably known
+     * @return void
+     */
+    public function startRedirect(): void
     {
-
-        if (isset($_COOKIE['link']) && $this->redirect && Utility::isMainSite() && $_COOKIE['link'] != $this->city->link) {
-
+        if (
+            isset($_COOKIE['link']) && $this->redirect
+            && Utility::isMainSite() && $_COOKIE['link'] != $this->city->link
+        ) {
             $link = $_COOKIE['link'];
 
             Utility::redirect($link);
-
         }
 
         if ($this->redirect && $this->isIp() && !isset($_COOKIE['link']) && Utility::isMainSite()) {
-
             if (!isset($_COOKIE['link'])) {
-
                 foreach ($this->cityInstance->getCities() as $key => $value) {
-                    if ($this->cityInstance->getCities()[$key]->name == $_SERVER[$this->cityInstance->settings->fields['server_city_key']]) {
+                    if (
+                        $this->cityInstance->getCities()[$key]->name ==
+                        $_SERVER[$this->cityInstance->settings->fields['server_city_key']]
+                    ) {
                         $currentCity = $this->cityInstance->getCities()[$key];
                     }
                 }
@@ -65,7 +61,6 @@ Class LocationReady
                     setcookie("link", $this->city->link, time() + 60 * 60 * 24 * 30, '/', $mainDomain);
 
                     Utility::redirect($mainDomain);
-
                 } else {
                     Utility::redirect($currentCity->fields['link']);
                 }
@@ -73,11 +68,14 @@ Class LocationReady
         }
     }
 
-    public function isIp()
+    /**
+     * @todo unknown
+     * @return bool
+     */
+
+    public function isIp(): bool
     {
-        return array_key_exists($this->cityInstance->settings->fields['server_city_key'], $_SERVER) && isset($_SERVER[$this->cityInstance->settings->fields['server_city_key']]);
-
+        return array_key_exists($this->cityInstance->settings->fields['server_city_key'], $_SERVER)
+            && isset($_SERVER[$this->cityInstance->settings->fields['server_city_key']]);
     }
-
-
 }

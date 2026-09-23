@@ -14,11 +14,20 @@
     }
   ],
   "require": {
+    "php": "^8.0",
+    "jeremykendall/php-domain-parser": "^6.3.0"
+  },
+  "require-dev": {
+    "vimeo/psalm": "^5.25.0",
+    "squizlabs/php_codesniffer": "4.0.x-dev"
   },
   "minimum-stability": "dev",
   "autoload": {
     "psr-0": {
-      "Cities\\": "classes/"
+      "Cities\\": "classes/",
+      "CitySection\\": "classes/",
+      "MaterialSeo\\": "classes/",
+      "MenuUserSeo\\": "classes/"
     }
   },
   "extra": {
